@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { 
-  ArrowLeft, CheckCircle2, ChevronRight, Phone, ShieldCheck, 
+  ArrowLeft, CheckCircle2, ChevronRight, ChevronLeft, Phone, ShieldCheck, 
   Sparkles, Hammer, Ruler, Layers, ChevronDown, Send, Eye, X 
 } from "lucide-react";
 import { shutters, blinds } from "@/data";
@@ -18,6 +18,71 @@ export default function ProductDetail({ product, onBack, onSelectProduct }) {
     windowCount: "1 - 3 windows",
     notes: ""
   });
+
+  const galleryImages = (product?.gallery && product.gallery.length > 0)
+    ? product.gallery 
+    : (product?.img ? [product.img] : []);
+
+  const currentIndex = galleryImages.indexOf(selectedImg) !== -1 
+    ? galleryImages.indexOf(selectedImg) 
+    : 0;
+
+  const handlePrev = (e) => {
+    e?.stopPropagation();
+    if (galleryImages.length <= 1) return;
+    const prevIdx = (currentIndex - 1 + galleryImages.length) % galleryImages.length;
+    setSelectedImg(galleryImages[prevIdx]);
+  };
+
+  const handleNext = (e) => {
+    e?.stopPropagation();
+    if (galleryImages.length <= 1) return;
+    const nextIdx = (currentIndex + 1) % galleryImages.length;
+    setSelectedImg(galleryImages[nextIdx]);
+  };
+
+  // Touch swipe support
+  const [touchStart, setTouchStart] = useState(null);
+  const [touchEnd, setTouchEnd] = useState(null);
+  const minSwipeDistance = 45;
+
+  const handleTouchStart = (e) => {
+    setTouchEnd(null);
+    setTouchStart(e.targetTouches[0].clientX);
+  };
+
+  const handleTouchMove = (e) => {
+    setTouchEnd(e.targetTouches[0].clientX);
+  };
+
+  const handleTouchEnd = () => {
+    if (!touchStart || !touchEnd) return;
+    const distance = touchStart - touchEnd;
+    if (distance > minSwipeDistance) {
+      handleNext();
+    } else if (distance < -minSwipeDistance) {
+      handlePrev();
+    }
+  };
+
+  // Keyboard navigation for gallery & lightbox
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (galleryImages.length > 1) {
+        if (e.key === "ArrowLeft") {
+          handlePrev();
+        } else if (e.key === "ArrowRight") {
+          handleNext();
+        }
+      }
+      if (e.key === "Escape" && lightboxOpen) {
+        setLightboxOpen(false);
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [galleryImages, currentIndex, lightboxOpen]);
 
   // Scroll to top when product changes
   useEffect(() => {
@@ -83,25 +148,62 @@ export default function ProductDetail({ product, onBack, onSelectProduct }) {
             {/* Left: Interactive Media Gallery */}
             <div className="lg:col-span-6 space-y-4">
               {/* Main Image Stage */}
-              <div className="group relative aspect-[4/5] sm:aspect-[4/4.5] w-full overflow-hidden rounded-2xl bg-card ring-1 ring-border/80 shadow-lg">
+              <div 
+                className="group relative aspect-[4/5] sm:aspect-[4/4.5] w-full overflow-hidden rounded-2xl bg-card ring-1 ring-border/80 shadow-lg select-none"
+                onTouchStart={handleTouchStart}
+                onTouchMove={handleTouchMove}
+                onTouchEnd={handleTouchEnd}
+              >
                 <img
                   src={selectedImg || product.img}
                   alt={product.name}
                   className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
                 />
+
+                {/* Left and Right Navigation Buttons */}
+                {galleryImages.length > 1 && (
+                  <>
+                    <button
+                      type="button"
+                      onClick={handlePrev}
+                      className="absolute left-3 sm:left-4 top-1/2 -translate-y-1/2 z-10 grid h-10 w-10 sm:h-11 sm:w-11 place-items-center rounded-full bg-white/85 sm:bg-white/80 backdrop-blur-md text-charcoal shadow-md ring-1 ring-black/10 hover:bg-white hover:scale-110 active:scale-95 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-accent cursor-pointer"
+                      aria-label="Previous image"
+                    >
+                      <ChevronLeft className="h-5 w-5 sm:h-6 sm:w-6" />
+                    </button>
+
+                    <button
+                      type="button"
+                      onClick={handleNext}
+                      className="absolute right-3 sm:right-4 top-1/2 -translate-y-1/2 z-10 grid h-10 w-10 sm:h-11 sm:w-11 place-items-center rounded-full bg-white/85 sm:bg-white/80 backdrop-blur-md text-charcoal shadow-md ring-1 ring-black/10 hover:bg-white hover:scale-110 active:scale-95 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-accent cursor-pointer"
+                      aria-label="Next image"
+                    >
+                      <ChevronRight className="h-5 w-5 sm:h-6 sm:w-6" />
+                    </button>
+                  </>
+                )}
+
+                {/* Image Counter Badge */}
+                {galleryImages.length > 1 && (
+                  <div className="absolute top-4 right-4 z-10">
+                    <span className="rounded-full bg-charcoal/75 backdrop-blur-md px-3 py-1 text-[11px] font-medium tracking-wider text-white shadow-sm ring-1 ring-white/10">
+                      {currentIndex + 1} / {galleryImages.length}
+                    </span>
+                  </div>
+                )}
                 
                 {/* Lightbox button */}
                 <button
                   type="button"
                   onClick={() => setLightboxOpen(true)}
-                  className="absolute bottom-4 right-4 inline-flex items-center gap-1.5 rounded-full bg-charcoal/80 backdrop-blur-md px-3.5 py-1.5 text-xs text-white shadow-md transition-all hover:bg-charcoal hover:scale-105"
+                  className="absolute bottom-4 right-4 z-10 inline-flex items-center gap-1.5 rounded-full bg-charcoal/80 backdrop-blur-md px-3.5 py-1.5 text-xs text-white shadow-md transition-all hover:bg-charcoal hover:scale-105 cursor-pointer"
                   aria-label="View full size image"
                 >
                   <Eye className="h-3.5 w-3.5" /> Full View
                 </button>
 
                 {/* Category Pill */}
-                <div className="absolute top-4 left-4">
+                <div className="absolute top-4 left-4 z-10">
                   <span className="rounded-full bg-white/90 backdrop-blur-md px-3.5 py-1 text-[11px] font-medium uppercase tracking-wider text-charcoal shadow-sm ring-1 ring-black/5">
                     {product.category}
                   </span>
@@ -109,18 +211,19 @@ export default function ProductDetail({ product, onBack, onSelectProduct }) {
               </div>
 
               {/* Thumbnails strip */}
-              {product.gallery && product.gallery.length > 1 && (
+              {galleryImages.length > 1 && (
                 <div className="flex gap-3 overflow-x-auto pb-2">
-                  {product.gallery.map((gImg, idx) => (
+                  {galleryImages.map((gImg, idx) => (
                     <button
                       key={idx}
                       type="button"
                       onClick={() => setSelectedImg(gImg)}
-                      className={`relative aspect-[4/3] w-20 sm:w-24 shrink-0 overflow-hidden rounded-xl ring-2 transition-all ${
+                      className={`relative aspect-[4/3] w-20 sm:w-24 shrink-0 overflow-hidden rounded-xl ring-2 transition-all cursor-pointer ${
                         selectedImg === gImg
-                          ? "ring-accent shadow-md scale-100"
-                          : "ring-transparent opacity-70 hover:opacity-100"
+                          ? "ring-accent shadow-md scale-100 opacity-100"
+                          : "ring-transparent opacity-65 hover:opacity-100"
                       }`}
+                      aria-label={`Thumbnail ${idx + 1}`}
                     >
                       <img src={gImg} alt={`${product.name} preview ${idx + 1}`} className="h-full w-full object-cover" />
                     </button>
@@ -497,19 +600,57 @@ export default function ProductDetail({ product, onBack, onSelectProduct }) {
         <div 
           className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 p-4 backdrop-blur-md animate-fade-in"
           onClick={() => setLightboxOpen(false)}
+          onTouchStart={handleTouchStart}
+          onTouchMove={handleTouchMove}
+          onTouchEnd={handleTouchEnd}
         >
+          {/* Close button */}
           <button
             type="button"
             onClick={() => setLightboxOpen(false)}
-            className="absolute top-6 right-6 grid h-10 w-10 place-items-center rounded-full bg-white/20 text-white hover:bg-white/40 transition-colors"
+            className="absolute top-6 right-6 z-30 grid h-11 w-11 place-items-center rounded-full bg-white/20 text-white hover:bg-white/40 backdrop-blur-md transition-colors cursor-pointer"
             aria-label="Close preview"
           >
             <X className="h-6 w-6" />
           </button>
+
+          {/* Lightbox Navigation Buttons */}
+          {galleryImages.length > 1 && (
+            <>
+              <button
+                type="button"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handlePrev(e);
+                }}
+                className="absolute left-4 sm:left-8 top-1/2 -translate-y-1/2 z-30 grid h-12 w-12 sm:h-14 sm:w-14 place-items-center rounded-full bg-white/20 text-white hover:bg-white/40 backdrop-blur-md transition-all hover:scale-105 active:scale-95 cursor-pointer"
+                aria-label="Previous image"
+              >
+                <ChevronLeft className="h-7 w-7" />
+              </button>
+
+              <button
+                type="button"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleNext(e);
+                }}
+                className="absolute right-4 sm:right-8 top-1/2 -translate-y-1/2 z-30 grid h-12 w-12 sm:h-14 sm:w-14 place-items-center rounded-full bg-white/20 text-white hover:bg-white/40 backdrop-blur-md transition-all hover:scale-105 active:scale-95 cursor-pointer"
+                aria-label="Next image"
+              >
+                <ChevronRight className="h-7 w-7" />
+              </button>
+
+              <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-30 rounded-full bg-black/60 backdrop-blur-md px-4 py-1.5 text-xs text-white/90 ring-1 ring-white/10">
+                {currentIndex + 1} / {galleryImages.length}
+              </div>
+            </>
+          )}
+
           <img
             src={selectedImg || product.img}
             alt={product.name}
-            className="max-h-[90vh] max-w-[90vw] rounded-xl object-contain shadow-2xl"
+            className="max-h-[90vh] max-w-[90vw] rounded-xl object-contain shadow-2xl transition-all duration-300"
             onClick={(e) => e.stopPropagation()}
           />
         </div>
