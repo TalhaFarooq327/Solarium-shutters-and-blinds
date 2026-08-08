@@ -72,9 +72,9 @@ export default function Footer() {
         <div>
           <div className="text-xs uppercase tracking-[0.22em] text-muted-foreground">Contact</div>
           <ul className="mt-4 space-y-2 text-sm text-charcoal">
-            <li className="flex items-center gap-2"><Phone className="h-3.5 w-3.5 text-accent" /> 020 4577 2222</li>
+            <li className="flex items-center gap-2"><Phone className="h-3.5 w-3.5 text-accent" /> +44 (745) 123-45-67</li>
             <li className="flex items-center gap-2"><Mail className="h-3.5 w-3.5 text-accent" /> hello@solariumshutters.co.uk</li>
-            <li className="flex items-start gap-2"><MapPin className="mt-0.5 h-3.5 w-3.5 text-accent" /> 12 Chiltern Mews, London</li>
+            <li className="flex items-start gap-2"><MapPin className="mt-0.5 h-3.5 w-3.5 text-accent shrink-0" /> 4 Broadhalgh Road, Rochdale, England</li>
           </ul>
         </div>
 
@@ -82,9 +82,8 @@ export default function Footer() {
         <div>
           <div className="text-xs uppercase tracking-[0.22em] text-muted-foreground">Hours</div>
           <ul className="mt-4 space-y-2 text-sm text-charcoal">
-            <li>Mon – Fri · 9:00 – 18:00</li>
-            <li>Saturday · 10:00 – 16:00</li>
-            <li>Sunday · By appointment</li>
+            <li>Mon – Fri · 08:00 AM – 04:00 PM</li>
+            <li>Sat – Sun · 08:00 AM – 12:00 PM</li>
           </ul>
         </div>
       </div>

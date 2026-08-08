@@ -19,9 +19,9 @@ export default function Faq() {
             Can't see your question? Ring us on{" "}
             <a
               className="text-accent font-medium underline-offset-4 hover:underline"
-              href="tel:+442045772222"
+              href="tel:+447451234567"
             >
-              020 4577 2222
+              +44 (745) 123-45-67
             </a>{" "}
             — we'd love to help.
           </p>
@@ -48,9 +48,8 @@ export default function Faq() {
                     </span>
                   </button>
                   <div
-                    className={`grid transition-all duration-500 ease-in-out ${
-                      open ? "grid-rows-[1fr] pb-6 opacity-100" : "grid-rows-[0fr] opacity-0"
-                    }`}
+                    className={`grid transition-all duration-500 ease-in-out ${open ? "grid-rows-[1fr] pb-6 opacity-100" : "grid-rows-[0fr] opacity-0"
+                      }`}
                   >
                     <div className="overflow-hidden">
                       <p className="pr-10 text-sm leading-relaxed text-muted-foreground">{f.a}</p>

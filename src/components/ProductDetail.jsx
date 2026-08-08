@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
-import { 
-  ArrowLeft, CheckCircle2, ChevronRight, ChevronLeft, Phone, ShieldCheck, 
-  Sparkles, Hammer, Ruler, Layers, ChevronDown, Send, Eye, X 
+import {
+  ArrowLeft, CheckCircle2, ChevronRight, ChevronLeft, Phone, ShieldCheck,
+  Sparkles, Hammer, Ruler, Layers, ChevronDown, Send, Eye, X, Loader2, AlertCircle
 } from "lucide-react";
 import { shutters, blinds } from "@/data";
 
@@ -9,7 +9,8 @@ export default function ProductDetail({ product, onBack, onSelectProduct }) {
   const [selectedImg, setSelectedImg] = useState(product?.img);
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [openFaq, setOpenFaq] = useState(0);
-  const [submitted, setSubmitted] = useState(false);
+  const [status, setStatus] = useState("idle"); // 'idle' | 'loading' | 'success' | 'error'
+  const [errorMessage, setErrorMessage] = useState("");
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -20,11 +21,11 @@ export default function ProductDetail({ product, onBack, onSelectProduct }) {
   });
 
   const galleryImages = (product?.gallery && product.gallery.length > 0)
-    ? product.gallery 
+    ? product.gallery
     : (product?.img ? [product.img] : []);
 
-  const currentIndex = galleryImages.indexOf(selectedImg) !== -1 
-    ? galleryImages.indexOf(selectedImg) 
+  const currentIndex = galleryImages.indexOf(selectedImg) !== -1
+    ? galleryImages.indexOf(selectedImg)
     : 0;
 
   const handlePrev = (e) => {
@@ -89,7 +90,8 @@ export default function ProductDetail({ product, onBack, onSelectProduct }) {
     window.scrollTo({ top: 0, behavior: "smooth" });
     if (product) {
       setSelectedImg(product.img);
-      setSubmitted(false);
+      setStatus("idle");
+      setErrorMessage("");
       setOpenFaq(0);
     }
   }, [product]);
@@ -99,9 +101,38 @@ export default function ProductDetail({ product, onBack, onSelectProduct }) {
   const isShutter = product.category === "Plantation Shutters";
   const relatedProducts = (isShutter ? shutters : blinds).filter(p => p.slug !== product.slug);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setSubmitted(true);
+    setStatus("loading");
+    setErrorMessage("");
+
+    try {
+      const res = await fetch("/api/send-email", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          formType: "product_measure",
+          interest: `${product.name} (${product.category})`,
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone,
+          postcode: formData.postcode,
+          windowCount: formData.windowCount,
+          notes: formData.notes
+        })
+      });
+
+      const data = await res.json();
+      if (!res.ok) {
+        throw new Error(data.error || "Failed to submit measure request. Please try again or call us.");
+      }
+
+      setStatus("success");
+    } catch (err) {
+      console.error("Product measure request error:", err);
+      setStatus("error");
+      setErrorMessage(err.message || "An unexpected error occurred. Please call +44 (745) 123-45-67 directly.");
+    }
   };
 
   return (
@@ -121,15 +152,15 @@ export default function ProductDetail({ product, onBack, onSelectProduct }) {
           <div className="hidden items-center gap-2 text-xs text-muted-foreground sm:flex">
             <button type="button" onClick={onBack} className="hover:text-charcoal transition-colors">Home</button>
             <ChevronRight className="h-3 w-3" />
-            <button 
-              type="button" 
+            <button
+              type="button"
               onClick={() => {
                 onBack();
                 setTimeout(() => {
                   const el = document.getElementById(isShutter ? "shutters" : "blinds");
                   el?.scrollIntoView({ behavior: "smooth" });
                 }, 100);
-              }} 
+              }}
               className="hover:text-charcoal transition-colors"
             >
               {product.category}
@@ -144,11 +175,11 @@ export default function ProductDetail({ product, onBack, onSelectProduct }) {
       <section className="py-10 lg:py-16">
         <div className="mx-auto max-w-7xl px-5 sm:px-6 lg:px-10">
           <div className="grid gap-12 lg:grid-cols-12 lg:gap-14 items-start">
-            
+
             {/* Left: Interactive Media Gallery */}
             <div className="lg:col-span-6 space-y-4">
               {/* Main Image Stage */}
-              <div 
+              <div
                 className="group relative aspect-[4/5] sm:aspect-[4/4.5] w-full overflow-hidden rounded-2xl bg-card ring-1 ring-border/80 shadow-lg select-none"
                 onTouchStart={handleTouchStart}
                 onTouchMove={handleTouchMove}
@@ -191,7 +222,7 @@ export default function ProductDetail({ product, onBack, onSelectProduct }) {
                     </span>
                   </div>
                 )}
-                
+
                 {/* Lightbox button */}
                 <button
                   type="button"
@@ -218,11 +249,10 @@ export default function ProductDetail({ product, onBack, onSelectProduct }) {
                       key={idx}
                       type="button"
                       onClick={() => setSelectedImg(gImg)}
-                      className={`relative aspect-[4/3] w-20 sm:w-24 shrink-0 overflow-hidden rounded-xl ring-2 transition-all cursor-pointer ${
-                        selectedImg === gImg
+                      className={`relative aspect-[4/3] w-20 sm:w-24 shrink-0 overflow-hidden rounded-xl ring-2 transition-all cursor-pointer ${selectedImg === gImg
                           ? "ring-accent shadow-md scale-100 opacity-100"
                           : "ring-transparent opacity-65 hover:opacity-100"
-                      }`}
+                        }`}
                       aria-label={`Thumbnail ${idx + 1}`}
                     >
                       <img src={gImg} alt={`${product.name} preview ${idx + 1}`} className="h-full w-full object-cover" />
@@ -266,17 +296,23 @@ export default function ProductDetail({ product, onBack, onSelectProduct }) {
 
               {/* Action Buttons */}
               <div className="flex flex-col sm:flex-row gap-3.5 pt-2">
-                <a
-                  href="#product-quote"
-                  className="inline-flex items-center justify-center rounded-full bg-charcoal px-7 py-4 text-xs font-medium uppercase tracking-[0.2em] text-primary-foreground shadow-md transition-all hover:bg-accent hover:text-charcoal hover:shadow-lg"
+                <button
+                  type="button"
+                  onClick={() => {
+                    const el = document.getElementById("product-quote");
+                    if (el) {
+                      el.scrollIntoView({ behavior: "smooth" });
+                    }
+                  }}
+                  className="inline-flex items-center justify-center rounded-full bg-charcoal px-7 py-4 text-xs font-medium uppercase tracking-[0.2em] text-primary-foreground shadow-md transition-all hover:bg-accent hover:text-charcoal hover:shadow-lg cursor-pointer"
                 >
                   Book Free In-Home Measure
-                </a>
+                </button>
                 <a
-                  href="tel:02045772222"
+                  href="tel:+447451234567"
                   className="inline-flex items-center justify-center gap-2 rounded-full border border-charcoal/30 bg-transparent px-6 py-4 text-xs font-medium uppercase tracking-[0.18em] text-charcoal transition-all hover:bg-cream"
                 >
-                  <Phone className="h-3.5 w-3.5 text-accent" /> 020 4577 2222
+                  <Phone className="h-3.5 w-3.5 text-accent" /> +44 (745) 123-45-67
                 </a>
               </div>
 
@@ -380,9 +416,8 @@ export default function ProductDetail({ product, onBack, onSelectProduct }) {
                   >
                     <span>{faq.q}</span>
                     <ChevronDown
-                      className={`h-5 w-5 text-accent transition-transform duration-300 ${
-                        openFaq === idx ? "rotate-180" : ""
-                      }`}
+                      className={`h-5 w-5 text-accent transition-transform duration-300 ${openFaq === idx ? "rotate-180" : ""
+                        }`}
                     />
                   </button>
                   {openFaq === idx && (
@@ -411,25 +446,43 @@ export default function ProductDetail({ product, onBack, onSelectProduct }) {
               </p>
             </div>
 
-            {submitted ? (
-              <div className="mt-10 rounded-2xl bg-card p-8 text-center ring-1 ring-border">
-                <div className="mx-auto grid h-14 w-14 place-items-center rounded-full bg-accent/15 text-accent">
+            {status === "success" ? (
+              <div className="mt-10 rounded-2xl bg-card p-8 text-center ring-1 ring-border animate-fade-in">
+                <div className="mx-auto grid h-14 w-14 place-items-center rounded-full bg-accent/15 text-accent ring-1 ring-accent/30 shadow-inner">
                   <CheckCircle2 className="h-7 w-7" />
                 </div>
-                <h3 className="mt-4 font-serif text-2xl text-charcoal">Thank You!</h3>
-                <p className="mt-2 text-sm text-muted-foreground">
-                  We've received your request for <strong>{product.name}</strong>. A design specialist will contact you within 24 hours to schedule your free measure.
+                <h3 className="mt-4 font-serif text-2xl text-charcoal">
+                  Thank You, {formData.name || "Customer"}!
+                </h3>
+                <p className="mt-2 text-sm text-muted-foreground max-w-md mx-auto leading-relaxed">
+                  We've received your request for <strong>{product.name}</strong> ({formData.windowCount}). A design specialist will contact you on <strong>{formData.phone}</strong> within 24 hours to arrange your complimentary in-home measure.
                 </p>
-                <button
-                  type="button"
-                  onClick={() => setSubmitted(false)}
-                  className="mt-6 text-xs uppercase tracking-widest text-accent font-medium hover:underline"
-                >
-                  Send another enquiry
-                </button>
+                <div className="mt-6 pt-6 border-t border-border/80 flex flex-col items-center gap-3">
+                  <p className="text-xs text-muted-foreground">Confirmation details sent to <strong>{formData.email}</strong></p>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setStatus("idle");
+                      setErrorMessage("");
+                    }}
+                    className="text-xs uppercase tracking-widest text-accent font-medium hover:underline cursor-pointer"
+                  >
+                    Send another enquiry →
+                  </button>
+                </div>
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="mt-10 grid gap-5 sm:grid-cols-2">
+                {status === "error" && (
+                  <div className="sm:col-span-2 rounded-xl bg-destructive/10 border border-destructive/20 p-4 text-xs text-destructive flex items-start gap-3">
+                    <AlertCircle className="h-4 w-4 shrink-0 mt-0.5" />
+                    <div>
+                      <p className="font-semibold">Submission Issue</p>
+                      <p className="mt-0.5">{errorMessage}</p>
+                    </div>
+                  </div>
+                )}
+
                 <div>
                   <label className="block text-xs font-medium uppercase tracking-wider text-charcoal mb-1.5">
                     Selected Product
@@ -444,57 +497,61 @@ export default function ProductDetail({ product, onBack, onSelectProduct }) {
 
                 <div>
                   <label className="block text-xs font-medium uppercase tracking-wider text-charcoal mb-1.5">
-                    Your Name *
+                    Your Name <span className="text-accent">*</span>
                   </label>
                   <input
                     type="text"
                     required
+                    disabled={status === "loading"}
                     placeholder="e.g. Eleanor Vance"
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                    className="w-full rounded-xl border border-border bg-card px-4 py-3 text-sm text-charcoal focus:border-accent focus:outline-hidden"
+                    className="w-full rounded-xl border border-border bg-card px-4 py-3 text-sm text-charcoal focus:border-accent focus:outline-hidden disabled:opacity-60"
                   />
                 </div>
 
                 <div>
                   <label className="block text-xs font-medium uppercase tracking-wider text-charcoal mb-1.5">
-                    Email Address *
+                    Email Address <span className="text-accent">*</span>
                   </label>
                   <input
                     type="email"
                     required
+                    disabled={status === "loading"}
                     placeholder="eleanor@example.com"
                     value={formData.email}
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                    className="w-full rounded-xl border border-border bg-card px-4 py-3 text-sm text-charcoal focus:border-accent focus:outline-hidden"
+                    className="w-full rounded-xl border border-border bg-card px-4 py-3 text-sm text-charcoal focus:border-accent focus:outline-hidden disabled:opacity-60"
                   />
                 </div>
 
                 <div>
                   <label className="block text-xs font-medium uppercase tracking-wider text-charcoal mb-1.5">
-                    Telephone Number *
+                    Telephone Number <span className="text-accent">*</span>
                   </label>
                   <input
                     type="tel"
                     required
+                    disabled={status === "loading"}
                     placeholder="07123 456 789"
                     value={formData.phone}
                     onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                    className="w-full rounded-xl border border-border bg-card px-4 py-3 text-sm text-charcoal focus:border-accent focus:outline-hidden"
+                    className="w-full rounded-xl border border-border bg-card px-4 py-3 text-sm text-charcoal focus:border-accent focus:outline-hidden disabled:opacity-60"
                   />
                 </div>
 
                 <div>
                   <label className="block text-xs font-medium uppercase tracking-wider text-charcoal mb-1.5">
-                    Postcode / Area *
+                    Postcode / Area <span className="text-accent">*</span>
                   </label>
                   <input
                     type="text"
                     required
+                    disabled={status === "loading"}
                     placeholder="e.g. SW3 4RD or Surrey"
                     value={formData.postcode}
                     onChange={(e) => setFormData({ ...formData, postcode: e.target.value })}
-                    className="w-full rounded-xl border border-border bg-card px-4 py-3 text-sm text-charcoal focus:border-accent focus:outline-hidden"
+                    className="w-full rounded-xl border border-border bg-card px-4 py-3 text-sm text-charcoal focus:border-accent focus:outline-hidden disabled:opacity-60"
                   />
                 </div>
 
@@ -504,8 +561,9 @@ export default function ProductDetail({ product, onBack, onSelectProduct }) {
                   </label>
                   <select
                     value={formData.windowCount}
+                    disabled={status === "loading"}
                     onChange={(e) => setFormData({ ...formData, windowCount: e.target.value })}
-                    className="w-full rounded-xl border border-border bg-card px-4 py-3 text-sm text-charcoal focus:border-accent focus:outline-hidden"
+                    className="w-full rounded-xl border border-border bg-card px-4 py-3 text-sm text-charcoal focus:border-accent focus:outline-hidden disabled:opacity-60"
                   >
                     <option>1 - 2 windows</option>
                     <option>3 - 5 windows</option>
@@ -521,19 +579,30 @@ export default function ProductDetail({ product, onBack, onSelectProduct }) {
                   </label>
                   <textarea
                     rows={3}
+                    disabled={status === "loading"}
                     placeholder="Tell us about your room, window shapes, or any questions..."
                     value={formData.notes}
                     onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
-                    className="w-full rounded-xl border border-border bg-card px-4 py-3 text-sm text-charcoal focus:border-accent focus:outline-hidden"
+                    className="w-full rounded-xl border border-border bg-card px-4 py-3 text-sm text-charcoal focus:border-accent focus:outline-hidden disabled:opacity-60"
                   />
                 </div>
 
                 <div className="sm:col-span-2 pt-2">
                   <button
                     type="submit"
-                    className="flex w-full items-center justify-center gap-2 rounded-full bg-charcoal px-8 py-4 text-xs font-medium uppercase tracking-[0.2em] text-primary-foreground shadow-lg transition-all hover:bg-accent hover:text-charcoal"
+                    disabled={status === "loading"}
+                    className="flex w-full items-center justify-center gap-2 rounded-full bg-charcoal px-8 py-4 text-xs font-medium uppercase tracking-[0.2em] text-primary-foreground shadow-lg transition-all hover:bg-accent hover:text-charcoal disabled:opacity-75 disabled:pointer-events-none cursor-pointer"
                   >
-                    <Send className="h-4 w-4" /> Submit Free Measure Request
+                    {status === "loading" ? (
+                      <>
+                        <Loader2 className="h-4 w-4 animate-spin text-accent" />
+                        Submitting Measure Request...
+                      </>
+                    ) : (
+                      <>
+                        <Send className="h-4 w-4" /> Submit Free Measure Request
+                      </>
+                    )}
                   </button>
                   <p className="mt-3 text-center text-[11px] text-muted-foreground">
                     Strict privacy. No spam. No high-pressure sales tactics — ever.
@@ -597,7 +666,7 @@ export default function ProductDetail({ product, onBack, onSelectProduct }) {
 
       {/* Lightbox Modal */}
       {lightboxOpen && (
-        <div 
+        <div
           className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 p-4 backdrop-blur-md animate-fade-in"
           onClick={() => setLightboxOpen(false)}
           onTouchStart={handleTouchStart}

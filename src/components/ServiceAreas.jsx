@@ -16,11 +16,11 @@ export default function ServiceAreas() {
           <Reveal direction="left">
             <span className="eyebrow gold-line">Where We Work</span>
             <h2 className="mt-5 font-serif text-4xl text-charcoal sm:text-5xl">
-              Serving homes across the South &amp; beyond
+              Serving Homes Across Rochdale &amp; Surrounds
             </h2>
             <p className="mt-5 text-sm leading-relaxed text-muted-foreground">
-              Our specialists cover London and the Home Counties, with regular installations across the North West.
-              Unsure if we come to you? Send us your postcode.
+              Operating exclusively from 4 Broadhalgh Road, Rochdale, England, our master joiners provide dedicated in-home laser measurement, bespoke craftsmanship, and precision installation across Rochdale and surrounding areas.
+              Unsure if we cover your street? Send us your enquiry or call us directly.
             </p>
             <div className="mt-8 flex flex-wrap gap-2">
               {areas.map((a) => (
@@ -62,7 +62,7 @@ export default function ServiceAreas() {
               ))}
               <div className="absolute bottom-6 left-6 font-serif text-2xl font-semibold text-charcoal flex items-center gap-2">
                 <span className="h-2 w-2 rounded-full bg-accent animate-pulse" />
-                United Kingdom
+                Rochdale, England
               </div>
             </div>
           </Reveal>

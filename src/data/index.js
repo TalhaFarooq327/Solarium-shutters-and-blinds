@@ -513,10 +513,21 @@ export const steps = [
   { n: "04", title: "Professional Installation",text: "Our fitters install with meticulous care — no fuss, no mess." },
 ];
 
+export const businessInfo = {
+  name: "Solarium Shutters & Blinds",
+  address: "4 Broadhalgh Road, Rochdale, England",
+  phone: "+44 (745) 123-45-67",
+  email: "hello@solariumshutters.co.uk",
+  openingHours: [
+    { days: "Mon – Fri", hours: "08:00 AM – 04:00 PM" },
+    { days: "Sat – Sun", hours: "08:00 AM – 12:00 PM" }
+  ]
+};
+
 export const reviews = [
-  { name: "Amelia Whitaker", location: "Chelsea, London", quote: "Absolutely stunning. The team measured, made and fitted our bay window shutters flawlessly. It has transformed the whole room." },
-  { name: "James Callahan",  location: "Cheshire",        quote: "From the first visit to the final install, everything was calm, considered and precise. Truly craftsman quality." },
-  { name: "Priya Desai",     location: "Surrey",          quote: "No pressure, no upsell — just honest advice and beautiful shutters. Six windows done and every one is perfect." },
+  { name: "Amelia Whitaker", location: "Bamford, Rochdale", quote: "Absolutely stunning. The team measured, made and fitted our bay window shutters flawlessly. It has transformed the whole room." },
+  { name: "James Callahan",  location: "Norden, Rochdale",  quote: "From the first visit to the final install, everything was calm, considered and precise. Truly craftsman quality." },
+  { name: "Priya Desai",     location: "Rochdale",          quote: "No pressure, no upsell — just honest advice and beautiful shutters. Six windows done and every one is perfect." },
 ];
 
 export const faqs = [
@@ -528,7 +539,7 @@ export const faqs = [
 ];
 
 export const areas = [
-  "London", "Surrey", "Kent", "Sussex", "Berkshire",
-  "Hampshire", "Cheshire", "Manchester", "Buckinghamshire", "Essex",
-  "Hertfordshire", "Oxfordshire",
+  "Rochdale", "Bamford", "Norden", "Broadhalgh", "Castleton",
+  "Milnrow", "Littleborough", "Wardle", "Heywood", "Middleton",
+  "Shaw", "Greater Manchester",
 ];

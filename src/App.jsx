@@ -34,6 +34,9 @@ export default function App() {
       if (hash.startsWith("#product/")) {
         const slug = hash.replace("#product/", "");
         setCurrentProductSlug(slug);
+      } else if (hash.startsWith("#product-")) {
+        // Retain current product view if an in-page anchor is referenced
+        return;
       } else {
         setCurrentProductSlug(null);
       }

@@ -42,11 +42,10 @@ export default function Navbar({ scrolled, onNavigateHome, isProductPage }) {
   return (
     <>
       <header
-        className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
-          activeHeader
+        className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${activeHeader
             ? "bg-cream border-b border-border/80 shadow-[0_2px_15px_-4px_rgba(0,0,0,0.08)] py-3.5"
             : "bg-transparent py-5"
-        }`}
+          }`}
       >
         <div className="mx-auto flex max-w-7xl items-center justify-between px-5 sm:px-6 lg:px-10">
           {/* Logo */}
@@ -62,16 +61,14 @@ export default function Navbar({ scrolled, onNavigateHome, isProductPage }) {
             />
             <div className="flex flex-col">
               <span
-                className={`font-serif text-xl sm:text-2xl font-semibold tracking-tight transition-colors ${
-                  activeHeader ? "text-foreground" : "text-white"
-                }`}
+                className={`font-serif text-xl sm:text-2xl font-semibold tracking-tight transition-colors ${activeHeader ? "text-foreground" : "text-white"
+                  }`}
               >
                 Solarium
               </span>
               <span
-                className={`text-[9px] sm:text-[10px] uppercase tracking-[0.28em] font-medium -mt-1 transition-colors ${
-                  activeHeader ? "text-accent" : "text-white/80"
-                }`}
+                className={`text-[9px] sm:text-[10px] uppercase tracking-[0.28em] font-medium -mt-1 transition-colors ${activeHeader ? "text-accent" : "text-white/80"
+                  }`}
               >
                 Shutters & Blinds
               </span>
@@ -85,11 +82,10 @@ export default function Navbar({ scrolled, onNavigateHome, isProductPage }) {
                 key={item.href}
                 href={item.href}
                 onClick={(e) => handleLinkClick(e, item.href)}
-                className={`text-[13px] font-medium tracking-wide transition-colors ${
-                  activeHeader
+                className={`text-[13px] font-medium tracking-wide transition-colors ${activeHeader
                     ? "text-foreground/80 hover:text-foreground"
                     : "text-white/85 hover:text-white"
-                }`}
+                  }`}
               >
                 {item.label}
               </a>
@@ -102,11 +98,10 @@ export default function Navbar({ scrolled, onNavigateHome, isProductPage }) {
             <a
               href="#contact"
               onClick={(e) => handleLinkClick(e, "#contact")}
-              className={`rounded-full border px-3.5 py-1.5 sm:px-5 sm:py-2.5 text-[11px] sm:text-xs font-medium uppercase tracking-[0.16em] sm:tracking-[0.18em] transition-all ${
-                activeHeader
+              className={`rounded-full border px-3.5 py-1.5 sm:px-5 sm:py-2.5 text-[11px] sm:text-xs font-medium uppercase tracking-[0.16em] sm:tracking-[0.18em] transition-all ${activeHeader
                   ? "border-charcoal bg-charcoal text-primary-foreground hover:bg-charcoal/90"
                   : "border-white/70 text-white hover:bg-white hover:text-charcoal"
-              }`}
+                }`}
             >
               <span className="hidden sm:inline">Get a Free Quote</span>
               <span className="sm:hidden">Get Quote</span>
@@ -118,11 +113,10 @@ export default function Navbar({ scrolled, onNavigateHome, isProductPage }) {
               onClick={() => setMobileOpen(!mobileOpen)}
               aria-label={mobileOpen ? "Close menu" : "Open menu"}
               aria-expanded={mobileOpen}
-              className={`grid h-9 w-9 place-items-center rounded-lg border transition-all lg:hidden ${
-                activeHeader
+              className={`grid h-9 w-9 place-items-center rounded-lg border transition-all lg:hidden ${activeHeader
                   ? "border-border text-charcoal hover:bg-black/5"
                   : "border-white/40 text-white hover:bg-white/10"
-              }`}
+                }`}
             >
               {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
             </button>
@@ -132,11 +126,10 @@ export default function Navbar({ scrolled, onNavigateHome, isProductPage }) {
 
       {/* Mobile Drawer / Overlay */}
       <div
-        className={`fixed inset-x-0 top-[59px] sm:top-[63px] bottom-0 z-40 bg-cream/98 backdrop-blur-xl border-b border-border transition-all duration-300 ease-in-out lg:hidden flex flex-col justify-between px-6 py-8 overflow-y-auto ${
-          mobileOpen
+        className={`fixed inset-x-0 top-[59px] sm:top-[63px] bottom-0 z-40 bg-cream/98 backdrop-blur-xl border-b border-border transition-all duration-300 ease-in-out lg:hidden flex flex-col justify-between px-6 py-8 overflow-y-auto ${mobileOpen
             ? "opacity-100 translate-y-0 pointer-events-auto"
             : "opacity-0 -translate-y-4 pointer-events-none"
-        }`}
+          }`}
       >
         <nav className="flex flex-col space-y-3">
           {nav.map((item) => (
@@ -161,10 +154,10 @@ export default function Navbar({ scrolled, onNavigateHome, isProductPage }) {
             Get a Free Quote
           </a>
           <a
-            href="tel:02045772222"
+            href="tel:+447451234567"
             className="flex items-center justify-center gap-2 text-xs font-medium text-charcoal/80 hover:text-accent tracking-wider pt-1"
           >
-            <Phone className="h-3.5 w-3.5 text-accent" /> 020 4577 2222
+            <Phone className="h-3.5 w-3.5 text-accent" /> +44 (745) 123-45-67
           </a>
         </div>
       </div>
