@@ -29,9 +29,10 @@ export default function Blinds({ onSelectProduct }) {
           {blinds.map((b, idx) => (
             <Reveal
               key={b.slug || b.name}
-              delay={idx * 120}
+              delay={idx * 80}
               duration={800}
               direction="up"
+              threshold={0.06}
               as="article"
               onClick={() => onSelectProduct?.(b.slug)}
               className="group flex flex-col overflow-hidden rounded-xl bg-background ring-1 ring-border/70 shadow-2xs transition-all duration-400 hover:-translate-y-2 hover:shadow-[0_24px_45px_-20px_rgba(60,45,30,0.22)] hover:ring-accent/40 cursor-pointer"

@@ -31,9 +31,10 @@ export default function Shutters({ onSelectProduct }) {
           {shutters.map((s, idx) => (
             <Reveal
               key={s.slug || s.name}
-              delay={idx * 120}
+              delay={idx * 80}
               duration={800}
               direction="up"
+              threshold={0.06}
               as="article"
               onClick={() => onSelectProduct?.(s.slug)}
               className="group relative flex flex-col overflow-hidden rounded-2xl bg-card ring-1 ring-border/70 shadow-2xs transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_30px_60px_-25px_rgba(60,45,30,0.22)] hover:ring-accent/40 cursor-pointer"
