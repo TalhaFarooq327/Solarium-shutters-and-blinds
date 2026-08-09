@@ -19,6 +19,22 @@
   --charcoal: oklch(0.22 0.01 60);
 }
 
+/* ── Override Tailwind's default blue ring colour globally ─────────────── */
+*, *::before, *::after {
+  --tw-ring-color: var(--border);
+}
+
+/* Replace browser's blue focus outline with warm gold accent */
+:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 2px;
+}
+
+/* Remove default outline for mouse users — only show for keyboard nav */
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
 html { scroll-behavior: smooth; }
 
 body {

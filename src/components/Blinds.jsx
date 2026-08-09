@@ -29,7 +29,7 @@ export default function Blinds({ onSelectProduct }) {
           {blinds.map((b, idx) => (
             <Reveal
               key={b.slug || b.name}
-              delay={idx * 180}
+              delay={idx * 120}
               duration={800}
               direction="up"
               as="article"

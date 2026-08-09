@@ -31,7 +31,7 @@ export default function Shutters({ onSelectProduct }) {
           {shutters.map((s, idx) => (
             <Reveal
               key={s.slug || s.name}
-              delay={idx * 180}
+              delay={idx * 120}
               duration={800}
               direction="up"
               as="article"
