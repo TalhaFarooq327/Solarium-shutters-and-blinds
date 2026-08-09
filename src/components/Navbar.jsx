@@ -98,13 +98,12 @@ export default function Navbar({ scrolled, onNavigateHome, isProductPage }) {
             <a
               href="#contact"
               onClick={(e) => handleLinkClick(e, "#contact")}
-              className={`rounded-full border px-3.5 py-1.5 sm:px-5 sm:py-2.5 text-[11px] sm:text-xs font-medium uppercase tracking-[0.16em] sm:tracking-[0.18em] transition-all ${activeHeader
+              className={`hidden sm:inline-flex rounded-full border px-3.5 py-1.5 sm:px-5 sm:py-2.5 text-[11px] sm:text-xs font-medium uppercase tracking-[0.16em] sm:tracking-[0.18em] transition-all ${activeHeader
                   ? "border-charcoal bg-charcoal text-primary-foreground hover:bg-charcoal/90"
                   : "border-white/70 text-white hover:bg-white hover:text-charcoal"
                 }`}
             >
-              <span className="hidden sm:inline">Get a Free Quote</span>
-              <span className="sm:hidden">Get Quote</span>
+              Get a Free Quote
             </a>
 
             {/* Mobile Hamburger Button */}
