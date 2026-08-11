@@ -13,7 +13,7 @@ import g2 from "@/assets/gallery-2.jpg";
 import g3 from "@/assets/gallery-3.jpg";
 import g4 from "@/assets/gallery-4.jpg";
 
-import { Users, Sparkles, Hammer, ShieldCheck, Award } from "lucide-react";
+import { Users, Sparkles, Hammer, ShieldCheck, Award, Star } from "lucide-react";
 
 export { g1, g2, g3, g4 };
 
@@ -503,7 +503,8 @@ export const trust = [
   { icon: Sparkles,    stat: "Premium",  label: "Materials" },
   { icon: Hammer,      stat: "Expert",   label: "Installation" },
   { icon: ShieldCheck, stat: "Fully",    label: "Insured" },
-  { icon: Award,       stat: "10+ Years",label: "Experience" },
+  { icon: Award,       stat: "10+ Yrs",  label: "Experience" },
+  { icon: Star,        stat: "5-Star",   label: "Rated" },
 ];
 
 export const steps = [

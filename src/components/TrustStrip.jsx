@@ -4,7 +4,7 @@ import Reveal from "@/components/Reveal";
 export default function TrustStrip() {
   return (
     <section className="border-y border-border bg-cream/70 backdrop-blur-xs overflow-hidden">
-      <div className="mx-auto grid max-w-7xl grid-cols-2 gap-y-10 px-6 py-14 sm:grid-cols-3 md:grid-cols-5 lg:px-10">
+      <div className="mx-auto grid max-w-7xl grid-cols-2 gap-y-10 px-6 py-14 sm:grid-cols-3 lg:grid-cols-6 lg:px-10">
         {trust.map(({ icon: Icon, stat, label }, idx) => (
           <Reveal
             key={label}
