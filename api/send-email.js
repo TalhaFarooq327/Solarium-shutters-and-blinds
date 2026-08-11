@@ -3,6 +3,36 @@
  * Compatible with Vercel, Netlify, and standard Node.js serverless runtimes.
  */
 
+// ── Self-contained .env loader (dev only) ───────────────────────────────────
+// On Netlify/production, env vars come from the dashboard and this is a no-op.
+// Locally, Vite's loadEnv sometimes doesn't populate process.env in time for
+// dynamically re-imported modules, so we read .env directly as a fallback.
+import { readFileSync } from 'fs';
+import { resolve, dirname } from 'path';
+import { fileURLToPath } from 'url';
+
+try {
+  const __dir = dirname(fileURLToPath(import.meta.url));
+  // Walk up one level from /api/ to project root
+  const envPath = resolve(__dir, '..', '.env');
+  const lines = readFileSync(envPath, 'utf8').split('\n');
+  for (const line of lines) {
+    const trimmed = line.trim();
+    if (!trimmed || trimmed.startsWith('#')) continue;
+    const eqIdx = trimmed.indexOf('=');
+    if (eqIdx === -1) continue;
+    const key = trimmed.slice(0, eqIdx).trim();
+    const val = trimmed.slice(eqIdx + 1).trim();
+    // Only set if not already provided by the platform
+    if (key && !process.env[key]) {
+      process.env[key] = val;
+    }
+  }
+} catch {
+  // .env not found (normal in production) — env vars come from platform
+}
+// ────────────────────────────────────────────────────────────────────────────
+
 // Helper to escape HTML characters in user input to prevent injection
 function sanitize(str) {
   if (typeof str !== "string") return "";
@@ -184,7 +214,7 @@ function generateCustomerConfirmationHtml({ name, interest }) {
 /**
  * Main HTTP Handler for Serverless Environments
  */
-export default async function handler(req, res) {
+export default async function sendEmailHandler(req, res) {
   // Set CORS headers for browser compatibility
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
@@ -303,4 +333,60 @@ export default async function handler(req, res) {
       error: "An unexpected error occurred while processing your request. Please try again or call us directly."
     });
   }
+}
+
+// ── Netlify Functions adapter ─────────────────────────────────────────────────
+// Netlify calls exports.handler(event, context) instead of handler(req, res).
+// We build a lightweight req/res shim so the logic above works unchanged.
+export const handler = async (event) => {
+  // Only allow POST and OPTIONS
+  if (event.httpMethod === 'OPTIONS') {
+    return {
+      statusCode: 200,
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'POST, OPTIONS',
+        'Access-Control-Allow-Headers': 'Content-Type',
+      },
+      body: '',
+    };
+  }
+
+  // Build a response accumulator
+  let statusCode = 200;
+  const responseHeaders = {
+    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Methods': 'POST, OPTIONS',
+    'Access-Control-Allow-Headers': 'Content-Type',
+    'Content-Type': 'application/json',
+  };
+  let responseBody = '';
+
+  // Fake req
+  const req = {
+    method: event.httpMethod,
+    body: event.body,
+    headers: event.headers,
+  };
+
+  // Fake res
+  const res = {
+    statusCode: 200,
+    setHeader(key, val) { responseHeaders[key] = val; },
+    status(code) { statusCode = code; return this; },
+    json(data) { responseBody = JSON.stringify(data); return this; },
+    end(data) { if (data) responseBody = data; },
+  };
+
+  await handler_internal(req, res);
+
+  return { statusCode, headers: responseHeaders, body: responseBody };
+};
+
+// Re-export default for Vite dev middleware
+export { sendEmailHandler as default };
+
+// Internal call used by the Netlify adapter above
+async function handler_internal(req, res) {
+  return sendEmailHandler(req, res);
 }
