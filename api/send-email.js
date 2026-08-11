@@ -336,10 +336,9 @@ export default async function sendEmailHandler(req, res) {
 }
 
 // ── Netlify Functions adapter ─────────────────────────────────────────────────
-// Netlify calls exports.handler(event, context) instead of handler(req, res).
-// We build a lightweight req/res shim so the logic above works unchanged.
+// Netlify calls handler(event) and expects { statusCode, headers, body }.
+// We shim req/res so sendEmailHandler above works without changes.
 export const handler = async (event) => {
-  // Only allow POST and OPTIONS
   if (event.httpMethod === 'OPTIONS') {
     return {
       statusCode: 200,
@@ -352,7 +351,6 @@ export const handler = async (event) => {
     };
   }
 
-  // Build a response accumulator
   let statusCode = 200;
   const responseHeaders = {
     'Access-Control-Allow-Origin': '*',
@@ -362,31 +360,20 @@ export const handler = async (event) => {
   };
   let responseBody = '';
 
-  // Fake req
   const req = {
     method: event.httpMethod,
     body: event.body,
     headers: event.headers,
   };
 
-  // Fake res
   const res = {
-    statusCode: 200,
     setHeader(key, val) { responseHeaders[key] = val; },
     status(code) { statusCode = code; return this; },
     json(data) { responseBody = JSON.stringify(data); return this; },
     end(data) { if (data) responseBody = data; },
   };
 
-  await handler_internal(req, res);
+  await sendEmailHandler(req, res);
 
   return { statusCode, headers: responseHeaders, body: responseBody };
 };
-
-// Re-export default for Vite dev middleware
-export { sendEmailHandler as default };
-
-// Internal call used by the Netlify adapter above
-async function handler_internal(req, res) {
-  return sendEmailHandler(req, res);
-}
