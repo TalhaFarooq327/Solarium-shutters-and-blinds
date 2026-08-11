@@ -1,9 +1,4 @@
-import sFull from "@/assets/shutter-full-height.jpg";
-import sCafe from "@/assets/shutter-cafe.jpg";
-import sTier from "@/assets/shutter-tier.jpg";
-import sBay from "@/assets/shutter-bay.jpg";
-import sFrench from "@/assets/shutter-french.jpg";
-import sTracked from "@/assets/shutter-tracked.jpg";
+
 import bRoller from "@/assets/blind-roller.jpg";
 import bRoman from "@/assets/blind-roman.jpg";
 import bVertical from "@/assets/blind-vertical.jpg";

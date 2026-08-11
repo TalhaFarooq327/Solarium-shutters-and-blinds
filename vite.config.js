@@ -1,6 +1,11 @@
 import { defineConfig, loadEnv } from 'vite';
 import react from '@vitejs/plugin-react';
 import path from 'path';
+import { fileURLToPath } from 'url';
+
+// Resolve the project root from this config file's location — survives Vite's .vite-temp copy
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const API_HANDLER_PATH = path.resolve(__dirname, 'api/send-email.js');
 
 function apiDevPlugin() {
   return {
@@ -28,7 +33,7 @@ function apiDevPlugin() {
             };
 
             try {
-              const handlerModule = await import(`./api/send-email.js?t=${Date.now()}`);
+              const handlerModule = await import(`${API_HANDLER_PATH}?t=${Date.now()}`);
               const handler = handlerModule.default;
               await handler(req, res);
             } catch (err) {
