@@ -1,30 +1,74 @@
-import sFull    from "@/assets/shutter-full-height.jpg";
-import sCafe    from "@/assets/shutter-cafe.jpg";
-import sTier    from "@/assets/shutter-tier.jpg";
-import sBay     from "@/assets/shutter-bay.jpg";
-import sFrench  from "@/assets/shutter-french.jpg";
+import sFull from "@/assets/shutter-full-height.jpg";
+import sCafe from "@/assets/shutter-cafe.jpg";
+import sTier from "@/assets/shutter-tier.jpg";
+import sBay from "@/assets/shutter-bay.jpg";
+import sFrench from "@/assets/shutter-french.jpg";
 import sTracked from "@/assets/shutter-tracked.jpg";
-import bRoller  from "@/assets/blind-roller.jpg";
-import bRoman   from "@/assets/blind-roman.jpg";
-import bVertical  from "@/assets/blind-vertical.jpg";
-import bVenetian  from "@/assets/blind-venetian.jpg";
+import bRoller from "@/assets/blind-roller.jpg";
+import bRoman from "@/assets/blind-roman.jpg";
+import bVertical from "@/assets/blind-vertical.jpg";
+import bVenetian from "@/assets/blind-venetian.jpg";
 import g1 from "@/assets/gallery-1.jpg";
 import g2 from "@/assets/gallery-2.jpg";
 import g3 from "@/assets/gallery-3.jpg";
 import g4 from "@/assets/gallery-4.jpg";
+import fullHeight1 from "@/assets/shutters/Full-Height/full-height1.png";
+import fullHeight2 from "@/assets/shutters/Full-Height/full-height2.png";
+import fullHeight3 from "@/assets/shutters/Full-Height/full-height3.png";
+import fullHeight4 from "@/assets/shutters/Full-Height/full-height4.png";
+import cafe1 from "@/assets/shutters/Cafe-Style/cafe-style1.png";
+import cafe2 from "@/assets/shutters/Cafe-Style/cafe-style2.png";
+import cafe3 from "@/assets/shutters/Cafe-Style/cafe-style3.png";
+import cafe4 from "@/assets/shutters/Cafe-Style/cafe-style4.png";
+import tier1 from "@/assets/shutters/Tier-on-Tier/tier-on-tier1.png";
+import tier2 from "@/assets/shutters/Tier-on-Tier/tier-on-tier2.png";
+import tier3 from "@/assets/shutters/Tier-on-Tier/tier-on-tier3.png";
+import tier4 from "@/assets/shutters/Tier-on-Tier/tier-on-tier4.png";
+import bay1 from "@/assets/shutters/Bay-Window/bay-window1.png";
+import bay2 from "@/assets/shutters/Bay-Window/bay-window2.png";
+import bay3 from "@/assets/shutters/Bay-Window/bay-window3.png";
+import bay4 from "@/assets/shutters/Bay-Window/bay-window4.png";
+import french1 from "@/assets/shutters/French-Doors/french-doors1.png";
+import french2 from "@/assets/shutters/French-Doors/french-doors2.png";
+import french3 from "@/assets/shutters/French-Doors/french-doors3.png";
+import french4 from "@/assets/shutters/French-Doors/french-doors4.png";
+import tracked1 from "@/assets/shutters/Tracked/tracked1.png";
+import tracked2 from "@/assets/shutters/Tracked/tracked2.png";
+import tracked3 from "@/assets/shutters/Tracked/tracked3.png";
+import tracked4 from "@/assets/shutters/Tracked/tracked4.png";
+
+import roman1 from "@/assets/blinds/Roman-Blinds/roman-blinds1.png";
+import roman2 from "@/assets/blinds/Roman-Blinds/roman-blinds2.png";
+import roman3 from "@/assets/blinds/Roman-Blinds/roman-blinds3.png";
+import roman4 from "@/assets/blinds/Roman-Blinds/roman-blinds4.png";
+
+import roller1 from "@/assets/blinds/Roller-Blinds/roller-blinds1.png";
+import roller2 from "@/assets/blinds/Roller-Blinds/roller-blinds2.png";
+import roller3 from "@/assets/blinds/Roller-Blinds/roller-blinds3.png";
+import roller4 from "@/assets/blinds/Roller-Blinds/roller-blinds4.png";
+
+import vertical1 from "@/assets/blinds/Vertical-Blinds/vertical-blinds1.png";
+import vertical2 from "@/assets/blinds/Vertical-Blinds/vertical-blinds2.png";
+import vertical3 from "@/assets/blinds/Vertical-Blinds/vertical-blinds3.png";
+import vertical4 from "@/assets/blinds/Vertical-Blinds/vertical-blinds4.png";
+
+import venetian1 from "@/assets/blinds/Venetian-Blinds/venetian-blinds1.png";
+import venetian2 from "@/assets/blinds/Venetian-Blinds/venetian-blinds2.png";
+import venetian3 from "@/assets/blinds/Venetian-Blinds/venetian-blinds3.png";
+import venetian4 from "@/assets/blinds/Venetian-Blinds/venetian-blinds4.png";
 
 import { Users, Sparkles, Hammer, ShieldCheck, Award, Star } from "lucide-react";
 
 export { g1, g2, g3, g4 };
 
 export const nav = [
-  { label: "Home",                href: "#home" },
+  { label: "Home", href: "#home" },
   { label: "Plantation Shutters", href: "#shutters" },
-  { label: "Blinds",              href: "#blinds" },
-  { label: "Gallery",             href: "#gallery" },
-  { label: "About",               href: "#about" },
-  { label: "FAQ",                 href: "#faq" },
-  { label: "Contact",             href: "#contact" },
+  { label: "Blinds", href: "#blinds" },
+  { label: "Gallery", href: "#gallery" },
+  { label: "About", href: "#about" },
+  { label: "FAQ", href: "#faq" },
+  { label: "Contact", href: "#contact" },
 ];
 
 export const shutters = [
@@ -33,8 +77,8 @@ export const shutters = [
     slug: "full-height-shutters",
     name: "Full Height Shutters",
     category: "Plantation Shutters",
-    img: sFull,
-    gallery: [sFull, g1, g4, g3],
+    img: fullHeight1,
+    gallery: [fullHeight1, fullHeight2, fullHeight3, fullHeight4],
     tagline: "The timeless, full-coverage plantation shutter offering unmatched privacy, light control, and thermal elegance.",
     desc: "A single expanse of louvres across the whole window — the timeless, unified look.",
     overview: `Full Height shutters are our most popular and versatile style. Covering the entirety of the window reveal in one seamless, tailored frame, they create an architectural focal point that elevates both traditional period homes and crisp contemporary interiors.
@@ -82,8 +126,8 @@ Each panel is handcrafted from sustainably sourced hardwood or high-density wate
     slug: "cafe-style-shutters",
     name: "Café Style Shutters",
     category: "Plantation Shutters",
-    img: sCafe,
-    gallery: [sCafe, g2, sFull, g1],
+    img: cafe1,
+    gallery: [cafe1, cafe2, cafe3, cafe4],
     tagline: "Half-height panels providing street-level privacy while letting daylight flood into the room above.",
     desc: "Half-height panels that guard privacy while letting daylight pour in above.",
     overview: `Inspired by traditional Parisian cafés and Continental townhouses, Café Style shutters cover only the lower portion of your window reveal — typically up to the mid-transom or sash meeting rail.
@@ -129,8 +173,8 @@ This creates the ultimate balance of privacy and natural illumination: passing p
     slug: "tier-on-tier-shutters",
     name: "Tier-on-Tier Shutters",
     category: "Plantation Shutters",
-    img: sTier,
-    gallery: [sTier, g3, sFull, g2],
+    img: tier1,
+    gallery: [tier1, tier2, tier3, tier4],
     tagline: "Independent upper and lower panels for the most versatile light, view, and privacy control possible.",
     desc: "Independent upper and lower panels for complete, precise control of light.",
     overview: `Tier-on-Tier shutters offer the ultimate in architectural flexibility. Comprising two independent tiers of shutter panels — one stacked directly above the other within a single reveal — you can open, fold back, or tilt each tier completely independently.
@@ -175,8 +219,8 @@ Fold the top panels wide open to flood your room with sunshine, while keeping th
     slug: "bay-window-shutters",
     name: "Bay Window Shutters",
     category: "Plantation Shutters",
-    img: sBay,
-    gallery: [sBay, g1, g3, sFull],
+    img: bay1,
+    gallery: [bay1, bay2, bay3, bay4],
     tagline: "Custom angled, mitred, and hinged to follow every facet of your bay window with tailored precision.",
     desc: "Perfectly angled to your bay, mitred and hinged for a seamless finish.",
     overview: `Bay windows are one of the most stunning features of British homes, but dressing them with heavy curtains often obscures their beautiful geometry and consumes valuable floor space.
@@ -221,8 +265,8 @@ Our Bay Window Shutters are custom-engineered for 3-facet, 5-facet, splay, and 9
     slug: "french-door-shutters",
     name: "French Door Shutters",
     category: "Plantation Shutters",
-    img: sFrench,
-    gallery: [sFrench, g4, sBay, sTracked],
+    img: french1,
+    gallery: [french1, french2, french3, french4],
     tagline: "Sculpted timber frames that attach directly to the door, operating smoothly without obstructing handles.",
     desc: "Slim, sculpted frames that move with the door and stay flawlessly aligned.",
     overview: `French Door shutters are custom-crafted to attach directly to patio and French garden doors. Featuring engineered cut-outs for door handles, multi-point locking keys, and lever hardware, they move as one with the doors as you step in and out of your garden.
@@ -265,8 +309,8 @@ No flapping blinds or tangled cords when a summer breeze blows. Our French door 
     slug: "tracked-shutters",
     name: "Tracked Shutters",
     category: "Plantation Shutters",
-    img: sTracked,
-    gallery: [sTracked, g4, sFrench, g1],
+    img: tracked1,
+    gallery: [tracked1, tracked2, tracked3, tracked4],
     tagline: "Smooth-gliding shutter panels on an unobtrusive concealed track for large bi-fold doors and wide glass expanses.",
     desc: "Ideal for wide openings and patio doors — glide smoothly on a hidden track.",
     overview: `For modern bi-folding doors, expansive sliding glass panels, and open-plan room dividers, Tracked Shutters are the ultimate architectural dressing.
@@ -314,7 +358,7 @@ export const blinds = [
     name: "Roller Blinds",
     category: "Luxury Blinds",
     img: bRoller,
-    gallery: [bRoller, g2, g4, bRoman],
+    gallery: [bRoller, roller1, roller2, roller3, roller4],
     tagline: "Clean, minimalist aesthetics crafted in luxury textured fabrics, thermal blackouts, and motorized options.",
     desc: "Clean, minimal lines in luxury fabrics.",
     overview: `Our bespoke Roller Blinds bring modern sophistication and refined simplicity to every room. Engineered with precision aluminium barrels and smooth-glide mechanisms, they roll up into a neat, compact profile that leaves your window views completely open.
@@ -361,7 +405,7 @@ Choose from hundreds of curated fabrics — including semi-translucent voiles fo
     name: "Roman Blinds",
     category: "Luxury Blinds",
     img: bRoman,
-    gallery: [bRoman, g1, g3, bRoller],
+    gallery: [bRoman, roman1, roman2, roman3, roman4],
     tagline: "Sumptuous soft folds and tailored drapery fabrics that create warmth, depth, and timeless opulence.",
     desc: "Soft folds and tailored elegance.",
     overview: `Handcrafted with the meticulous care of fine soft furnishings, our bespoke Roman Blinds introduce lavish texture and cozy sophistication to your windows. When raised, they gather in neat, tailored horizontal pleats that form an elegant fabric valance; when lowered, they lie flat to showcase rich fabric patterns and textures.
@@ -406,7 +450,7 @@ Every Roman blind is custom made in our workshop with hand-stitched edges, premi
     name: "Vertical Blinds",
     category: "Luxury Blinds",
     img: bVertical,
-    gallery: [bVertical, g4, bRoller, bVenetian],
+    gallery: [bVertical, vertical1, vertical2, vertical3, vertical4],
     tagline: "Contemporary vertical louvres providing expansive light filtering and rotation for wide patio windows.",
     desc: "Sleek control for wide windows.",
     overview: `Modernized for today’s homes, our vertical blinds combine expansive window coverage with refined, minimalist styling. Featuring 180-degree rotating fabric louvres suspended from a slim aluminium headrail, they give you complete direction control over sunlight and glare throughout the day.
@@ -451,7 +495,7 @@ Gone are the noisy, fragile chains of the past: our vertical blinds feature mode
     name: "Venetian Blinds",
     category: "Luxury Blinds",
     img: bVenetian,
-    gallery: [bVenetian, g1, bRoman, sFull],
+    gallery: [bVenetian, venetian1, venetian2, venetian3, venetian4],
     tagline: "Warm natural hardwood, faux wood, and brushed metallic slats for refined horizontal light control.",
     desc: "Warm timber and refined metals.",
     overview: `Venetian blinds offer classic linear elegance and tactile craftsmanship. With adjustable horizontal slats, you can fine-tune incoming daylight, cast beautiful shadow lines across your floor, and protect your privacy with a quick turn of the control.
@@ -499,19 +543,19 @@ export function getProductBySlug(slug) {
 }
 
 export const trust = [
-  { icon: Users,       stat: "500+",     label: "Happy Customers" },
-  { icon: Sparkles,    stat: "Premium",  label: "Materials" },
-  { icon: Hammer,      stat: "Expert",   label: "Installation" },
-  { icon: ShieldCheck, stat: "Fully",    label: "Insured" },
-  { icon: Award,       stat: "10+ Yrs",  label: "Experience" },
-  { icon: Star,        stat: "5-Star",   label: "Rated" },
+  { icon: Users, stat: "500+", label: "Happy Customers" },
+  { icon: Sparkles, stat: "Premium", label: "Materials" },
+  { icon: Hammer, stat: "Expert", label: "Installation" },
+  { icon: ShieldCheck, stat: "Fully", label: "Insured" },
+  { icon: Award, stat: "10+ Years", label: "Experience" },
+  { icon: Star, stat: "5-Star", label: "Rated" },
 ];
 
 export const steps = [
-  { n: "01", title: "Request a Quote",          text: "Tell us about your windows and the look you're after." },
-  { n: "02", title: "Free Home Measure",        text: "A specialist visits, measures every reveal and advises on style." },
-  { n: "03", title: "Custom Build",             text: "Your shutters are handcrafted from premium hardwood or ABS." },
-  { n: "04", title: "Professional Installation",text: "Our fitters install with meticulous care — no fuss, no mess." },
+  { n: "01", title: "Request a Quote", text: "Tell us about your windows and the look you're after." },
+  { n: "02", title: "Free Home Measure", text: "A specialist visits, measures every reveal and advises on style." },
+  { n: "03", title: "Custom Build", text: "Your shutters are handcrafted from premium hardwood or ABS." },
+  { n: "04", title: "Professional Installation", text: "Our fitters install with meticulous care — no fuss, no mess." },
 ];
 
 export const businessInfo = {
@@ -527,16 +571,21 @@ export const businessInfo = {
 
 export const reviews = [
   { name: "Amelia Whitaker", location: "Bamford, Rochdale", quote: "Absolutely stunning. The team measured, made and fitted our bay window shutters flawlessly. It has transformed the whole room." },
-  { name: "James Callahan",  location: "Norden, Rochdale",  quote: "From the first visit to the final install, everything was calm, considered and precise. Truly craftsman quality." },
-  { name: "Priya Desai",     location: "Rochdale",          quote: "No pressure, no upsell — just honest advice and beautiful shutters. Six windows done and every one is perfect." },
+  { name: "James Callahan", location: "Norden, Rochdale", quote: "From the first visit to the final install, everything was calm, considered and precise. Truly craftsman quality." },
+  { name: "Priya Desai", location: "Rochdale", quote: "No pressure, no upsell — just honest advice and beautiful shutters. Six windows done and every one is perfect." },
+  { name: "Marcus Reynolds", location: "Stalybridge", quote: "Had plantation shutters fitted to bay windows. Absolutely brilliant job from start to finish. Clean, quick and perfect fit. Highly recommend!" },
+  { name: "Fiona Campbell", location: "Oldham", quote: "Professional service and beautiful shutters installed quickly and efficiently. Highly recommend this company." },
+  { name: "David Thompson", location: "Bolton", quote: "Great company! Very professional from the free consultation to the final installation. Shutters look fantastic!" },
+  { name: "Sarah Jenkins", location: "Huddersfield", quote: "Excellent work. The shutters are top quality and fit perfectly. Very neat and tidy installation. 10/10." },
+  { name: "Laura Peterson", location: "Altrincham", quote: "Very happy with my new shutters. Installation was quick and the fitters were very polite and professional. Would definitely use again." },
 ];
 
 export const faqs = [
   { q: "How do bespoke plantation shutters and blinds compare?", a: "Plantation shutters are permanently hinged architectural fixtures adding property value and superior insulation. Blinds offer lightweight, versatile fabric styling with fast turnaround." },
-  { q: "How long does installation take?",              a: "Most homes are installed in a single day. Larger properties or bay windows may take up to two, and we protect every surface as we work." },
-  { q: "Do you measure and install yourselves?",        a: "Yes. We never sub-contract. The specialist who measures your windows works with the same fitters throughout the project." },
-  { q: "What warranty do you provide?",                 a: "All plantation shutters come with a lifetime guarantee on the mechanism and a 10-year finish warranty. Blinds are covered for 5 years." },
-  { q: "Which styles suit period homes?",               a: "Full-height, café style, and bay window shutters in our solid hardwood range are the most popular choices for Victorian and Edwardian properties." },
+  { q: "How long does installation take?", a: "Most homes are installed in a single day. Larger properties or bay windows may take up to two, and we protect every surface as we work." },
+  { q: "Do you measure and install yourselves?", a: "Yes. We never sub-contract. The specialist who measures your windows works with the same fitters throughout the project." },
+  { q: "What warranty do you provide?", a: "All plantation shutters come with a lifetime guarantee on the mechanism and a 10-year finish warranty. Blinds are covered for 5 years." },
+  { q: "Which styles suit period homes?", a: "Full-height, café style, and bay window shutters in our solid hardwood range are the most popular choices for Victorian and Edwardian properties." },
 ];
 
 export const areas = [

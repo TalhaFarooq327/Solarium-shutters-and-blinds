@@ -80,17 +80,7 @@ export default function Hero() {
         </div>
       </div>
 
-      {/* Floating Scroll Indicator — desktop only */}
-      <a
-        href="#shutters"
-        aria-label="Scroll down to explore shutters"
-        className="absolute bottom-6 right-8 z-20 hidden lg:flex items-center gap-2 text-[11px] uppercase tracking-[0.24em] text-white/70 hover:text-white transition-colors animate-float-slow"
-      >
-        <span>Scroll</span>
-        <span className="grid h-6 w-6 place-items-center rounded-full border border-white/30 bg-black/20 backdrop-blur-xs">
-          <ChevronDown className="h-3.5 w-3.5" />
-        </span>
-      </a>
+
     </section>
   );
 }
