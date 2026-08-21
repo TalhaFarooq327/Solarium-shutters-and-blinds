@@ -83,7 +83,7 @@ export default function Contact() {
             <span className="italic text-accent">begin with a hello.</span>
           </h2>
           <p className="mt-6 max-w-md text-primary-foreground/75 leading-relaxed">
-            Leave a few details and we'll be in touch to arrange your free home measure in Rochdale & surrounds — no hard sales, we promise.
+            Leave a few details and we'll be in touch to arrange your free home measure in Greater Manchester &amp; surrounds — no hard sales, we promise.
           </p>
           <div className="mt-10 space-y-4 text-sm text-primary-foreground/85">
             <a href="tel:+447451234567" className="flex items-center gap-3 transition-colors hover:text-accent group">

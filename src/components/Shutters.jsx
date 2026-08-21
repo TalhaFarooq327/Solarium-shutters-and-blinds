@@ -21,7 +21,7 @@ export default function Shutters({ onSelectProduct }) {
           <Reveal className="max-w-md" direction="right" duration={850} delay={100}>
             <p className="text-base leading-relaxed text-muted-foreground">
               We shape each shutter to the millimetre of your reveal. Hand-finished hardwood, brass hinges,
-              louvres that whisper closed — the details you feel every day.
+              louvres that whisper closed and the details you feel every day.
             </p>
           </Reveal>
         </div>

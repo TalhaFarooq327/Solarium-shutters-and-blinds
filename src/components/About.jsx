@@ -34,7 +34,7 @@ export default function About() {
               window ourselves, still hand-finish every panel, and still answer the phone when you call.
             </p>
             <p className="mt-4 text-base leading-relaxed text-muted-foreground">
-              No hard sales. No sub-contractors. Just quiet, careful craftsmanship — and a home you'll love a little more.
+              No hard sales. No sub-contractors. Just quiet, careful craftsmanship and a home you'll love a little more.
             </p>
 
             {/* Animated Stats */}

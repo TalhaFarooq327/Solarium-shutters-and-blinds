@@ -1,3 +1,5 @@
+@import "leaflet/dist/leaflet.css";
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -20,7 +22,9 @@
 }
 
 /* ── Override Tailwind's default blue ring colour globally ─────────────── */
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   --tw-ring-color: var(--border);
 }
 
@@ -35,7 +39,9 @@
   outline: none;
 }
 
-html { scroll-behavior: smooth; }
+html {
+  scroll-behavior: smooth;
+}
 
 body {
   background: var(--background);
@@ -44,7 +50,11 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-h1, h2, h3, h4, .font-serif {
+h1,
+h2,
+h3,
+h4,
+.font-serif {
   font-family: "Playfair Display", ui-serif, Georgia, serif;
   letter-spacing: -0.01em;
 }
@@ -58,6 +68,7 @@ h1, h2, h3, h4, .font-serif {
     font-weight: 500;
     color: var(--muted-foreground);
   }
+
   .gold-line::before {
     content: "";
     display: inline-block;
@@ -67,16 +78,23 @@ h1, h2, h3, h4, .font-serif {
     vertical-align: middle;
     margin-right: 0.75rem;
   }
-  .hover-zoom { overflow: hidden; }
+
+  .hover-zoom {
+    overflow: hidden;
+  }
+
   .hover-zoom img {
     transition: transform 1.2s cubic-bezier(0.2, 0.7, 0.2, 1);
   }
-  .hover-zoom:hover img { transform: scale(1.06); }
-  
-  .fade-up { 
-    animation: fade-up 1s cubic-bezier(0.16, 1, 0.3, 1) both; 
+
+  .hover-zoom:hover img {
+    transform: scale(1.06);
   }
-  
+
+  .fade-up {
+    animation: fade-up 1s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+
   .animate-ken-burns {
     animation: ken-burns 22s ease-in-out infinite alternate;
   }
@@ -90,12 +108,10 @@ h1, h2, h3, h4, .font-serif {
   }
 
   .animate-shimmer {
-    background: linear-gradient(
-      90deg,
-      rgba(255, 255, 255, 0) 0%,
-      rgba(255, 255, 255, 0.25) 50%,
-      rgba(255, 255, 255, 0) 100%
-    );
+    background: linear-gradient(90deg,
+        rgba(255, 255, 255, 0) 0%,
+        rgba(255, 255, 255, 0.25) 50%,
+        rgba(255, 255, 255, 0) 100%);
     background-size: 200% 100%;
     animation: shimmer 3s infinite;
   }
@@ -104,6 +120,7 @@ h1, h2, h3, h4, .font-serif {
     position: relative;
     overflow: hidden;
   }
+
   .shimmer-button::after {
     content: "";
     position: absolute;
@@ -111,25 +128,24 @@ h1, h2, h3, h4, .font-serif {
     left: -60%;
     width: 40%;
     height: 200%;
-    background: linear-gradient(
-      to right,
-      rgba(255, 255, 255, 0) 0%,
-      rgba(255, 255, 255, 0.35) 50%,
-      rgba(255, 255, 255, 0) 100%
-    );
+    background: linear-gradient(to right,
+        rgba(255, 255, 255, 0) 0%,
+        rgba(255, 255, 255, 0.35) 50%,
+        rgba(255, 255, 255, 0) 100%);
     transform: rotate(25deg);
     animation: button-glint 5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
   }
 }
 
 @keyframes fade-up {
-  from { 
-    opacity: 0; 
-    transform: translateY(28px); 
+  from {
+    opacity: 0;
+    transform: translateY(28px);
   }
-  to { 
-    opacity: 1; 
-    transform: translateY(0); 
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
@@ -137,18 +153,23 @@ h1, h2, h3, h4, .font-serif {
   0% {
     transform: scale(1) translate(0, 0);
   }
+
   50% {
     transform: scale(1.06) translate(-1%, -1%);
   }
+
   100% {
     transform: scale(1.03) translate(1%, 0.5%);
   }
 }
 
 @keyframes float-slow {
-  0%, 100% {
+
+  0%,
+  100% {
     transform: translateY(0px);
   }
+
   50% {
     transform: translateY(-8px);
   }
@@ -159,10 +180,12 @@ h1, h2, h3, h4, .font-serif {
     transform: scale(0.95);
     box-shadow: 0 0 0 0 rgba(184, 134, 11, 0.6);
   }
+
   70% {
     transform: scale(1.05);
     box-shadow: 0 0 0 12px rgba(184, 134, 11, 0);
   }
+
   100% {
     transform: scale(0.95);
     box-shadow: 0 0 0 0 rgba(184, 134, 11, 0);
@@ -173,24 +196,34 @@ h1, h2, h3, h4, .font-serif {
   0% {
     background-position: -200% 0;
   }
+
   100% {
     background-position: 200% 0;
   }
 }
 
 @keyframes button-glint {
-  0%, 70% {
+
+  0%,
+  70% {
     left: -60%;
   }
-  85%, 100% {
+
+  85%,
+  100% {
     left: 140%;
   }
 }
 
 /* ── Infinite marquee (Reviews ticker) ──────────────────────────────────── */
 @keyframes marquee-scroll {
-  0%   { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(-50%);
+  }
 }
 
 .marquee-track {
@@ -200,7 +233,55 @@ h1, h2, h3, h4, .font-serif {
   will-change: transform;
 }
 
-.marquee-track:hover {
-  animation-play-state: paused;
+
+/* ── Leaflet Google Maps Styling Overrides ───────────────────────────── */
+.leaflet-container {
+  font-family: inherit;
+  background-color: #e5e3df !important;
 }
 
+/* Custom styled zoom controls */
+.leaflet-control-zoom {
+  border: 1px solid oklch(0.88 0.012 75) !important;
+  border-radius: 12px !important;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05) !important;
+}
+
+.leaflet-control-zoom a {
+  background-color: oklch(0.985 0.006 80) !important;
+  color: oklch(0.22 0.01 60) !important;
+  border-bottom: 1px solid oklch(0.88 0.012 75) !important;
+  transition: all 0.2s ease !important;
+}
+
+.leaflet-control-zoom a:hover {
+  background-color: oklch(0.965 0.012 82) !important;
+  color: oklch(0.72 0.095 78) !important;
+}
+
+/* Custom styled luxury popups */
+.luxury-leaflet-popup .leaflet-popup-content-wrapper {
+  background: oklch(0.985 0.006 80) !important;
+  color: oklch(0.22 0.01 60) !important;
+  border: 1px solid oklch(0.72 0.095 78 / 0.4) !important;
+  border-radius: 16px !important;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1) !important;
+  padding: 6px !important;
+}
+
+.luxury-leaflet-popup .leaflet-popup-tip {
+  background: oklch(0.985 0.006 80) !important;
+  border-left: 1px solid oklch(0.72 0.095 78 / 0.4);
+  border-bottom: 1px solid oklch(0.72 0.095 78 / 0.4);
+}
+
+/* Discreet attribution bar */
+.leaflet-control-attribution {
+  background: rgba(255, 255, 255, 0.6) !important;
+  backdrop-filter: blur(4px);
+  color: #888 !important;
+  font-size: 9px !important;
+  border-radius: 6px 0 0 0;
+  padding: 2px 6px !important;
+}

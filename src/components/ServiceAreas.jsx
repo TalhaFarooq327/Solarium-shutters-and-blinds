@@ -1,74 +1,213 @@
-import { MapPin } from "lucide-react";
-import { areas } from "@/data";
+import { useState, useMemo } from "react";
+import { MapPin, Search, Navigation, Compass } from "lucide-react";
+import { manchesterAreaCategories } from "@/data";
 import Reveal from "@/components/Reveal";
+import StockportMap from "@/components/StockportMap";
 
-const MAP_DOTS = [
-  [30, 55], [45, 48], [52, 60], [40, 72], [60, 40],
-  [70, 55], [25, 40], [80, 68], [55, 32],
-];
+const POSTCODES = ["M", "SK", "OL", "BL", "WN", "WA", "M1-M90"];
 
 export default function ServiceAreas() {
-  return (
-    <section className="bg-cream/60 py-24 overflow-hidden">
-      <div className="mx-auto max-w-7xl px-6 lg:px-10">
-        <div className="grid gap-14 lg:grid-cols-2 lg:items-center">
-          {/* Text */}
-          <Reveal direction="left">
-            <span className="eyebrow gold-line">Where We Work</span>
-            <h2 className="mt-5 font-serif text-4xl text-charcoal sm:text-5xl">
-              Serving Homes Across Rochdale &amp; Surrounds
-            </h2>
-            <p className="mt-5 text-sm leading-relaxed text-muted-foreground">
-              Operating exclusively from 4 Broadhalgh Road, Rochdale, England, our master joiners provide dedicated in-home laser measurement, bespoke craftsmanship, and precision installation across Rochdale and surrounding areas.
-              Unsure if we cover your street? Send us your enquiry or call us directly.
-            </p>
-            <div className="mt-8 flex flex-wrap gap-2">
-              {areas.map((a) => (
-                <span
-                  key={a}
-                  className="rounded-full border border-border/80 bg-background px-4 py-2 text-xs tracking-wide text-charcoal font-medium shadow-2xs transition-all duration-300 hover:scale-105 hover:border-accent hover:shadow-xs cursor-default"
-                >
-                  <MapPin className="mr-1.5 -mt-0.5 inline h-3 w-3 text-accent" />
-                  {a}
-                </span>
-              ))}
-            </div>
-          </Reveal>
+  const [activeCategory, setActiveCategory] = useState(manchesterAreaCategories[0]?.id || "central-city");
+  const [searchQuery, setSearchQuery] = useState("");
+  const [selectedArea, setSelectedArea] = useState(null);
 
-          {/* Stylised animated map */}
-          <Reveal direction="right" delay={150}>
-            <div className="relative aspect-[4/3] overflow-hidden rounded-2xl bg-background ring-1 ring-border/70 shadow-lg">
-              <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_40%,oklch(0.72_0.095_78/0.25),transparent_55%),radial-gradient(circle_at_70%_65%,oklch(0.72_0.095_78/0.18),transparent_50%)]" />
-              <svg viewBox="0 0 400 300" className="absolute inset-0 h-full w-full opacity-40">
-                <defs>
-                  <pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse">
-                    <path d="M 20 0 L 0 0 0 20" fill="none" stroke="currentColor" strokeWidth="0.4" />
-                  </pattern>
-                </defs>
-                <rect width="400" height="300" fill="url(#grid)" className="text-muted-foreground" />
-              </svg>
-              {MAP_DOTS.map(([x, y], i) => (
-                <div
-                  key={i}
-                  className="absolute"
-                  style={{ left: `${x}%`, top: `${y}%` }}
+  const filteredCategories = useMemo(() => {
+    return manchesterAreaCategories
+      .map((cat) => {
+        if (cat.id !== activeCategory) {
+          return null;
+        }
+
+        if (!searchQuery.trim()) {
+          return cat;
+        }
+
+        const query = searchQuery.toLowerCase().trim();
+        const matchingAreas = cat.areas.filter(
+          (a) =>
+            a.name.toLowerCase().includes(query) ||
+            a.details.toLowerCase().includes(query)
+        );
+
+        if (matchingAreas.length === 0) return null;
+
+        return {
+          ...cat,
+          areas: matchingAreas,
+        };
+      })
+      .filter(Boolean);
+  }, [activeCategory, searchQuery]);
+
+  return (
+    <section id="areas" className="bg-cream/60 py-24 overflow-hidden">
+      <div className="mx-auto max-w-7xl px-6 lg:px-10">
+        <Reveal direction="up" className="text-center max-w-3xl mx-auto">
+          <span className="eyebrow gold-line justify-center">Where We Work</span>
+          <h2 className="mt-4 font-serif text-4xl text-charcoal sm:text-5xl">
+            Serving Homes Across Greater Manchester &amp; Cheshire
+          </h2>
+          <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
+            Our master fitters provide complimentary in-home laser measurement, architectural consultation, and precision installation across all 10 boroughs of Greater Manchester and Cheshire borders.
+          </p>
+        </Reveal>
+
+        {/* Filter Bar & Search */}
+        <div className="mt-10 flex flex-col md:flex-row items-center justify-between gap-4 border-b border-border/60 pb-6">
+          {/* Category Tabs */}
+          <div className="flex flex-wrap items-center gap-2 w-full md:w-auto">
+            {manchesterAreaCategories.map((cat) => (
+              <button
+                key={cat.id}
+                onClick={() => {
+                  setActiveCategory(cat.id);
+                  setSelectedArea(null);
+                }}
+                className={`px-4 py-2 text-xs font-medium rounded-full transition-all duration-200 cursor-pointer flex items-center gap-1.5 ${
+                  activeCategory === cat.id
+                    ? "bg-charcoal text-cream shadow-xs"
+                    : "bg-background border border-border/80 text-muted-foreground hover:text-charcoal hover:border-accent"
+                }`}
+              >
+                <span>{cat.icon}</span>
+                <span>{cat.category}</span>
+              </button>
+            ))}
+          </div>
+
+          {/* Search Box */}
+          <div className="relative w-full md:w-72">
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-muted-foreground" />
+            <input
+              type="text"
+              placeholder="Search city, suburb, postcode..."
+              value={searchQuery}
+              onChange={(e) => {
+                setSearchQuery(e.target.value);
+                if (e.target.value) setSelectedArea(e.target.value);
+              }}
+              className="w-full rounded-full border border-border/80 bg-background pl-9 pr-8 py-2 text-xs text-charcoal placeholder:text-muted-foreground/70 focus:border-accent focus:outline-hidden focus:ring-1 focus:ring-accent/30 transition-all"
+            />
+            {searchQuery && (
+              <button
+                onClick={() => {
+                  setSearchQuery("");
+                  setSelectedArea(null);
+                }}
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-muted-foreground hover:text-charcoal cursor-pointer"
+              >
+                ✕
+              </button>
+            )}
+          </div>
+        </div>
+
+        {/* Main Content Layout: Area Grid + Leaflet Map */}
+        <div className="mt-10 grid gap-10 lg:grid-cols-12 lg:items-start">
+          {/* Areas Display (7 Columns) */}
+          <div className="lg:col-span-7 space-y-8">
+            {filteredCategories.length === 0 ? (
+              <div className="rounded-2xl border border-dashed border-border p-8 text-center bg-background/50">
+                <Compass className="mx-auto h-8 w-8 text-muted-foreground/50 mb-3" />
+                <p className="text-sm font-medium text-charcoal">No areas match &quot;{searchQuery}&quot;</p>
+                <p className="text-xs text-muted-foreground mt-1">We cover all postcodes in Greater Manchester! Contact us to confirm your address.</p>
+                <button
+                  onClick={() => {
+                    setSearchQuery("");
+                    setActiveCategory(manchesterAreaCategories[0]?.id || "central-city");
+                    setSelectedArea(null);
+                  }}
+                  className="mt-4 text-xs font-semibold text-accent underline cursor-pointer hover:text-charcoal"
                 >
-                  <span
-                    className="block h-2.5 w-2.5 rounded-full bg-accent animate-radar-ping"
-                    style={{ animationDelay: `${i * 300}ms` }}
-                  />
-                  <span className="absolute inset-0 h-2.5 w-2.5 rounded-full bg-accent" />
-                </div>
-              ))}
-              <div className="absolute bottom-6 left-6 font-serif text-2xl font-semibold text-charcoal flex items-center gap-2">
-                <span className="h-2 w-2 rounded-full bg-accent animate-pulse" />
-                Rochdale, England
+                  Clear filters
+                </button>
               </div>
-            </div>
-          </Reveal>
+            ) : (
+              filteredCategories.map((cat) => (
+                <Reveal key={cat.id} direction="up">
+                  <div className="rounded-2xl border border-border/70 bg-background p-6 shadow-2xs transition-all duration-300 hover:shadow-md">
+                    <div className="flex items-center justify-between border-b border-border/50 pb-4">
+                      <div className="flex items-center gap-2.5">
+                        <span className="text-xl">{cat.icon}</span>
+                        <div>
+                          <h3 className="font-serif text-lg font-semibold text-charcoal">{cat.category}</h3>
+                          <p className="text-xs text-muted-foreground">{cat.tagline}</p>
+                        </div>
+                      </div>
+                      <span className="rounded-full bg-cream px-2.5 py-1 text-[10px] font-semibold text-accent tracking-wider uppercase">
+                        {cat.areas.length} Locations
+                      </span>
+                    </div>
+
+                    <div className="mt-5 grid gap-3 sm:grid-cols-2">
+                      {cat.areas.map((area, idx) => (
+                        <div
+                          key={idx}
+                          onClick={() => setSelectedArea(area.name)}
+                          className={`group relative rounded-xl border p-3.5 transition-all duration-200 cursor-pointer ${
+                            selectedArea === area.name
+                              ? "border-accent bg-accent/10 shadow-xs"
+                              : "border-border/40 bg-cream/30 hover:border-accent/60 hover:bg-cream/80 hover:shadow-2xs"
+                          }`}
+                        >
+                          <div className="flex items-start gap-2.5">
+                            <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-accent transition-transform duration-300 group-hover:scale-110" />
+                            <div>
+                              <h4 className="text-xs font-semibold text-charcoal group-hover:text-accent transition-colors">
+                                {area.name}
+                              </h4>
+                              <p className="mt-0.5 text-[11px] text-muted-foreground leading-snug">
+                                {area.details}
+                              </p>
+                              <span className="mt-1 inline-block text-[10px] text-accent font-medium opacity-0 group-hover:opacity-100 transition-opacity">
+                                View on Map &rarr;
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </Reveal>
+              ))
+            )}
+
+            {/* Postcode Coverage Banner */}
+            <Reveal direction="up" delay={100}>
+              <div className="rounded-2xl border border-accent/30 bg-accent/5 p-5 flex flex-col sm:flex-row items-center justify-between gap-4">
+                <div className="flex items-center gap-3">
+                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-accent/10 text-accent">
+                    <Navigation className="h-5 w-5" />
+                  </div>
+                  <div>
+                    <h4 className="text-xs font-semibold uppercase tracking-wider text-charcoal">Greater Manchester Postcodes Covered</h4>
+                    <div className="mt-1 flex flex-wrap gap-1.5">
+                      {POSTCODES.map((code) => (
+                        <span key={code} className="rounded-md bg-background px-2 py-0.5 text-[10px] font-bold text-charcoal border border-border/60">
+                          {code}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+                <a
+                  href="#contact"
+                  className="shrink-0 text-xs font-semibold text-accent hover:text-charcoal underline flex items-center gap-1 cursor-pointer"
+                >
+                  Book Free Survey &rarr;
+                </a>
+              </div>
+            </Reveal>
+          </div>
+
+          {/* Interactive Leaflet Map (5 Columns) */}
+          <div className="lg:col-span-5 lg:sticky lg:top-28">
+            <Reveal direction="right" delay={150}>
+              <StockportMap selectedArea={selectedArea} height="440px" />
+            </Reveal>
+          </div>
         </div>
       </div>
     </section>
   );
 }
-

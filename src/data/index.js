@@ -61,7 +61,6 @@ export const nav = [
   { label: "Home", href: "#home" },
   { label: "Plantation Shutters", href: "#shutters" },
   { label: "Blinds", href: "#blinds" },
-  { label: "Gallery", href: "#gallery" },
   { label: "About", href: "#about" },
   { label: "FAQ", href: "#faq" },
   { label: "Contact", href: "#contact" },
@@ -565,27 +564,103 @@ export const businessInfo = {
   ]
 };
 
-export const reviews = [
-  { name: "Amelia Whitaker", location: "Bamford, Rochdale", quote: "Absolutely stunning. The team measured, made and fitted our bay window shutters flawlessly. It has transformed the whole room." },
-  { name: "James Callahan", location: "Norden, Rochdale", quote: "From the first visit to the final install, everything was calm, considered and precise. Truly craftsman quality." },
-  { name: "Priya Desai", location: "Rochdale", quote: "No pressure, no upsell — just honest advice and beautiful shutters. Six windows done and every one is perfect." },
-  { name: "Marcus Reynolds", location: "Stalybridge", quote: "Had plantation shutters fitted to bay windows. Absolutely brilliant job from start to finish. Clean, quick and perfect fit. Highly recommend!" },
-  { name: "Fiona Campbell", location: "Oldham", quote: "Professional service and beautiful shutters installed quickly and efficiently. Highly recommend this company." },
-  { name: "David Thompson", location: "Bolton", quote: "Great company! Very professional from the free consultation to the final installation. Shutters look fantastic!" },
-  { name: "Sarah Jenkins", location: "Huddersfield", quote: "Excellent work. The shutters are top quality and fit perfectly. Very neat and tidy installation. 10/10." },
-  { name: "Laura Peterson", location: "Altrincham", quote: "Very happy with my new shutters. Installation was quick and the fitters were very polite and professional. Would definitely use again." },
+export const manchesterAreaCategories = [
+  {
+    id: "central-city",
+    category: "Manchester City Centre & Inner Hubs",
+    icon: "📍",
+    tagline: "Central Manchester, MediaCity & Urban Quarters",
+    areas: [
+      { name: "Manchester City Centre", details: "Northern Quarter, Ancoats, Castlefield & Spinningfields" },
+      { name: "Salford Quays & MediaCity", details: "Waterfront docks & contemporary glass apartments" },
+      { name: "Deansgate & Castlefield", details: "Historic canal quarter & high-rise residences" },
+      { name: "Old Trafford & Whalley Range", details: "Victorian villas & leafy avenues" },
+      { name: "Fallowfield & Rusholme", details: "Vibrant south-central communities" }
+    ]
+  },
+  {
+    id: "south-trafford",
+    category: "South Manchester & Trafford",
+    icon: "🌳",
+    tagline: "Premier Suburbs & Leafy Townships",
+    areas: [
+      { name: "Didsbury", details: "East Didsbury, West Didsbury & Didsbury Village" },
+      { name: "Chorlton-cum-Hardy", details: "Beech Road & Chorlton Green period homes" },
+      { name: "Altrincham & Bowdon", details: "Market town & period countryside residences" },
+      { name: "Hale & Hale Barns", details: "Exclusive South Trafford enclaves" },
+      { name: "Sale & Timperley", details: "Canal-side homes & family avenues" },
+      { name: "Stretford & Urmston", details: "Vibrant suburban communities" }
+    ]
+  },
+  {
+    id: "stockport-cheshire",
+    category: "Stockport & Cheshire Borders",
+    icon: "🏡",
+    tagline: "Borough of Stockport & Golden Triangle",
+    areas: [
+      { name: "Stockport Town Centre", details: "Market, Underbanks & Portwood" },
+      { name: "Bramhall & Woodford", details: "Bramhall Park & Woodford garden village" },
+      { name: "Cheadle & Cheadle Hulme", details: "Historic village & leafy suburbs" },
+      { name: "The Heatons", details: "Heaton Moor, Heaton Chapel & Heaton Mersey" },
+      { name: "Hazel Grove & Marple", details: "Marple Bridge, High Lane & Etherow Park" },
+      { name: "Wilmslow & Alderley Edge", details: "Cheshire border luxury properties" }
+    ]
+  },
+  {
+    id: "north-east",
+    category: "North & East Greater Manchester",
+    icon: "🧭",
+    tagline: "Rochdale HQ, Pennines & Tameside",
+    areas: [
+      { name: "Rochdale (HQ)", details: "Bamford, Norden, Broadhalgh & Castleton" },
+      { name: "Oldham & Saddleworth", details: "Uppermill, Greenfield & Pennine villages" },
+      { name: "Bury, Prestwich & Whitefield", details: "North Manchester heritage & suburbs" },
+      { name: "Heywood & Middleton", details: "Central borough hubs" },
+      { name: "Ashton-under-Lyne & Tameside", details: "Denton, Hyde & Stalybridge" }
+    ]
+  },
+  {
+    id: "west-northwest",
+    category: "West & North-West Region",
+    icon: "🏰",
+    tagline: "Salford Borough, West Pennines & Wigan",
+    areas: [
+      { name: "Worsley & Swinton", details: "Bridgewater Canal & historic timber homes" },
+      { name: "Eccles & Monton", details: "Monton Green & West Salford" },
+      { name: "Bolton & West Pennines", details: "Horwich, Egerton & Lostock" },
+      { name: "Wigan & Leigh", details: "Standish, Appley Bridge & Haigh" }
+    ]
+  }
 ];
+
+export const stockportAreaCategories = manchesterAreaCategories;
+
+export const areas = [
+  "Manchester City Centre", "Northern Quarter", "Ancoats", "Castlefield", "Spinningfields", "Deansgate",
+  "Salford Quays", "MediaCityUK", "Hulme", "Whalley Range", "Old Trafford", "Fallowfield", "Rusholme",
+  "Didsbury", "West Didsbury", "Chorlton", "Altrincham", "Hale", "Hale Barns", "Bowdon", "Sale", "Timperley", "Stretford", "Urmston",
+  "Stockport", "Bramhall", "Woodford", "Cheadle", "Cheadle Hulme", "Heaton Moor", "Heaton Chapel", "Heaton Mersey", "Hazel Grove", "Marple", "Marple Bridge", "Wilmslow", "Alderley Edge",
+  "Rochdale", "Bamford", "Norden", "Castleton", "Oldham", "Saddleworth", "Bury", "Prestwich", "Whitefield", "Heywood", "Middleton", "Ashton-under-Lyne", "Stalybridge",
+  "Salford", "Worsley", "Swinton", "Eccles", "Monton", "Bolton", "Horwich", "Wigan"
+];
+
+export const reviews = [
+  { name: "Amelia Whitaker", location: "Didsbury, Manchester", quote: "Absolutely stunning. The team measured, made and fitted our bay window shutters flawlessly. It has transformed the whole room." },
+  { name: "James Callahan", location: "Altrincham, Trafford", quote: "From the first visit to the final install, everything was calm, considered and precise. Truly craftsman quality." },
+  { name: "Priya Desai", location: "Bramhall, Stockport", quote: "No pressure, no upsell — just honest advice and beautiful shutters. Six windows done and every one is perfect." },
+  { name: "Marcus Reynolds", location: "Worsley, Salford", quote: "Had plantation shutters fitted to bay windows. Absolutely brilliant job from start to finish. Clean, quick and perfect fit. Highly recommend!" },
+  { name: "Fiona Campbell", location: "Saddleworth, Oldham", quote: "Professional service and beautiful shutters installed quickly and efficiently. Highly recommend this company." },
+  { name: "David Thompson", location: "Manchester City Centre", quote: "Great company! Very professional from the free consultation to the final installation. Shutters look fantastic!" },
+  { name: "Sarah Jenkins", location: "Prestwich, Bury", quote: "Excellent work. The shutters are top quality and fit perfectly. Very neat and tidy installation. 10/10." },
+  { name: "Laura Peterson", location: "Bamford, Rochdale", quote: "Very happy with my new shutters. Installation was quick and the fitters were very polite and professional. Would definitely use again." },
+];
+
 
 export const faqs = [
   { q: "How do bespoke plantation shutters and blinds compare?", a: "Plantation shutters are permanently hinged architectural fixtures adding property value and superior insulation. Blinds offer lightweight, versatile fabric styling with fast turnaround." },
   { q: "How long does installation take?", a: "Most homes are installed in a single day. Larger properties or bay windows may take up to two, and we protect every surface as we work." },
   { q: "Do you measure and install yourselves?", a: "Yes. We never sub-contract. The specialist who measures your windows works with the same fitters throughout the project." },
   { q: "What warranty do you provide?", a: "All plantation shutters come with a lifetime guarantee on the mechanism and a 10-year finish warranty. Blinds are covered for 5 years." },
-  { q: "Which styles suit period homes?", a: "Full-height, café style, and bay window shutters in our solid hardwood range are the most popular choices for Victorian and Edwardian properties." },
+  { q: "Which styles suit period homes?", a: "Full-height, café style, and bay window shutters in our solid hardwood range are the most popular choices for Victorian and Edwardian properties in Stockport." },
 ];
 
-export const areas = [
-  "Rochdale", "Bamford", "Norden", "Broadhalgh", "Castleton",
-  "Milnrow", "Littleborough", "Wardle", "Heywood", "Middleton",
-  "Shaw", "Greater Manchester",
-];
