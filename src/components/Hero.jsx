@@ -56,13 +56,13 @@ export default function Hero() {
         >
           <a
             href="#contact"
-            className="shimmer-button inline-flex justify-center items-center gap-2 rounded-full bg-white px-7 py-4 sm:px-7 sm:py-4 text-sm font-semibold tracking-wide text-charcoal shadow-lg transition-all duration-300 hover:bg-accent hover:text-charcoal hover:scale-[1.03] active:scale-[0.98]"
+            className="shimmer-button inline-flex justify-center items-center gap-2 rounded-full bg-white px-7 py-4 sm:px-7 sm:py-4 text-sm font-semibold tracking-wide text-slate-900 shadow-lg transition-all duration-300 hover:bg-accent hover:text-slate-900 hover:scale-[1.03] active:scale-[0.98]"
           >
             Get a Free Quote <ChevronRight className="h-4 w-4" />
           </a>
           <a
             href="#shutters"
-            className="inline-flex justify-center items-center gap-2 rounded-full border border-white/60 bg-white/10 backdrop-blur-xs px-7 py-4 sm:px-7 sm:py-4 text-sm font-medium tracking-wide text-white transition-all duration-300 hover:bg-white hover:text-charcoal hover:scale-[1.03] active:scale-[0.98]"
+            className="inline-flex justify-center items-center gap-2 rounded-full border border-white/60 bg-white/10 backdrop-blur-xs px-7 py-4 sm:px-7 sm:py-4 text-sm font-medium tracking-wide text-white transition-all duration-300 hover:bg-white hover:text-slate-900 hover:scale-[1.03] active:scale-[0.98]"
           >
             Explore Our Shutters
           </a>

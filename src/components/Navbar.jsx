@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
-import { Menu, X, Phone } from "lucide-react";
+import { Menu, X, Phone, Sun, Moon } from "lucide-react";
 import logoImg from "@/assets/logo.png";
 import { nav } from "@/data";
 
-export default function Navbar({ scrolled, onNavigateHome, isProductPage }) {
+export default function Navbar({ scrolled, onNavigateHome, isProductPage, theme, onToggleTheme }) {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   // Close mobile menu on resize to desktop
@@ -95,13 +95,31 @@ export default function Navbar({ scrolled, onNavigateHome, isProductPage }) {
 
           {/* Right Actions */}
           <div className="flex items-center gap-3">
+            {/* Theme Toggle Button */}
+            <button
+              type="button"
+              onClick={onToggleTheme}
+              aria-label="Toggle theme"
+              className={`grid h-9 w-9 place-items-center rounded-full border transition-all cursor-pointer ${
+                activeHeader
+                  ? "border-border bg-background text-charcoal hover:border-accent hover:text-accent"
+                  : "border-white/50 bg-black/30 text-white hover:bg-white hover:text-slate-900 backdrop-blur-sm"
+              }`}
+            >
+              {theme === "dark" ? (
+                <Sun className="h-4 w-4 text-accent transition-transform duration-300 hover:rotate-45" />
+              ) : (
+                <Moon className="h-4 w-4 transition-transform duration-300 hover:-rotate-12" />
+              )}
+            </button>
+
             {/* Desktop / Tablet CTA */}
             <a
               href="#contact"
               onClick={(e) => handleLinkClick(e, "#contact")}
               className={`hidden sm:inline-flex rounded-full border px-3.5 py-1.5 sm:px-5 sm:py-2.5 text-[11px] sm:text-xs font-medium uppercase tracking-[0.16em] sm:tracking-[0.18em] transition-all ${activeHeader
                   ? "border-charcoal bg-charcoal text-primary-foreground hover:bg-charcoal/90"
-                  : "border-white/70 text-white hover:bg-white hover:text-charcoal"
+                  : "border-white/70 text-white hover:bg-white hover:text-slate-900"
                 }`}
             >
               Get a Free Quote

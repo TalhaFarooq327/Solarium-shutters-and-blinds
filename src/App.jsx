@@ -19,12 +19,31 @@ import ProductDetail from "@/components/ProductDetail";
 export default function App() {
   const [scrolled, setScrolled] = useState(false);
   const [lightbox, setLightbox] = useState(null);
+  const [theme, setTheme] = useState(() => {
+    if (typeof window !== "undefined") {
+      const saved = localStorage.getItem("solarium-theme");
+      if (saved) return saved;
+      return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+    }
+    return "light";
+  });
+
   const [currentProductSlug, setCurrentProductSlug] = useState(() => {
     if (typeof window !== "undefined" && window.location.hash.startsWith("#product/")) {
       return window.location.hash.replace("#product/", "");
     }
     return null;
   });
+
+  // Dark mode class toggle & localStorage sync
+  useEffect(() => {
+    document.documentElement.classList.toggle("dark", theme === "dark");
+    localStorage.setItem("solarium-theme", theme);
+  }, [theme]);
+
+  const toggleTheme = () => {
+    setTheme((prev) => (prev === "dark" ? "light" : "dark"));
+  };
 
   // Handle hash change for browser back/forward and direct links
   useEffect(() => {
@@ -93,6 +112,8 @@ export default function App() {
         scrolled={scrolled}
         isProductPage={!!activeProduct}
         onNavigateHome={handleNavigateHome}
+        theme={theme}
+        onToggleTheme={toggleTheme}
       />
 
       {activeProduct ? (
