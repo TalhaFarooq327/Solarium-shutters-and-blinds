@@ -107,20 +107,38 @@ export default function ProductDetail({ product, onBack, onSelectProduct }) {
     setErrorMessage("");
 
     try {
-      const res = await fetch("/api/send-email", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          formType: "product_measure",
-          interest: `${product.name} (${product.category})`,
-          name: formData.name,
-          email: formData.email,
-          phone: formData.phone,
-          postcode: formData.postcode,
-          windowCount: formData.windowCount,
-          notes: formData.notes
-        })
-      });
+      let res;
+      const payload = {
+        formType: "product_measure",
+        interest: `${product.name} (${product.category})`,
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone,
+        postcode: formData.postcode,
+        windowCount: formData.windowCount,
+        notes: formData.notes
+      };
+
+      try {
+        res = await fetch("/api/send-email", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload)
+        });
+        if (res.status === 404) {
+          res = await fetch("/api/contact.php", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload)
+          });
+        }
+      } catch {
+        res = await fetch("/api/contact.php", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload)
+        });
+      }
 
       const data = await res.json();
       if (!res.ok) {

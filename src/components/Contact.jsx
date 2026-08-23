@@ -27,21 +27,37 @@ export default function Contact() {
     setErrorMessage("");
 
     try {
-      const res = await fetch("/api/send-email", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          formType: "general_consultation",
-          name: formData.name,
-          phone: formData.phone,
-          email: formData.email,
-          postcode: formData.postcode,
-          interest: formData.interest,
-          message: formData.message
-        })
-      });
+      let res;
+      const payload = {
+        formType: "general_consultation",
+        name: formData.name,
+        phone: formData.phone,
+        email: formData.email,
+        postcode: formData.postcode,
+        interest: formData.interest,
+        message: formData.message
+      };
+
+      try {
+        res = await fetch("/api/send-email", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload)
+        });
+        if (res.status === 404) {
+          res = await fetch("/api/contact.php", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload)
+          });
+        }
+      } catch {
+        res = await fetch("/api/contact.php", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload)
+        });
+      }
 
       const data = await res.json();
 

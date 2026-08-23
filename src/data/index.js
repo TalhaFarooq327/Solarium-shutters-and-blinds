@@ -3,10 +3,6 @@ import bRoller from "@/assets/blind-roller.jpg";
 import bRoman from "@/assets/blind-roman.jpg";
 import bVertical from "@/assets/blind-vertical.jpg";
 import bVenetian from "@/assets/blind-venetian.jpg";
-import g1 from "@/assets/gallery-1.jpg";
-import g2 from "@/assets/gallery-2.jpg";
-import g3 from "@/assets/gallery-3.jpg";
-import g4 from "@/assets/gallery-4.jpg";
 import fullHeight1 from "@/assets/shutters/full-height/full-height1.png";
 import fullHeight2 from "@/assets/shutters/full-height/full-height2.png";
 import fullHeight3 from "@/assets/shutters/full-height/full-height3.png";
@@ -54,8 +50,6 @@ import venetian4 from "@/assets/blinds/venetian-blinds/venetian-blinds4.png";
 
 
 import { Users, Sparkles, Hammer, ShieldCheck, Award, Star } from "lucide-react";
-
-export { g1, g2, g3, g4 };
 
 export const nav = [
   { label: "Home", href: "#home" },
