@@ -551,7 +551,7 @@ export const businessInfo = {
   name: "Solarium Shutters & Blinds",
   address: "4 Broadhalgh Road, Rochdale, England",
   phone: "+44 (745) 123-45-67",
-  email: "hello@solariumshutters.co.uk",
+  email: "solariumshutters@gmail.com",
   openingHours: [
     { days: "Mon – Fri", hours: "08:00 AM – 04:00 PM" },
     { days: "Sat – Sun", hours: "08:00 AM – 12:00 PM" }
@@ -562,7 +562,6 @@ export const manchesterAreaCategories = [
   {
     id: "central-city",
     category: "Manchester City Centre & Inner Hubs",
-    icon: "📍",
     tagline: "Central Manchester, MediaCity & Urban Quarters",
     areas: [
       { name: "Manchester City Centre", details: "Northern Quarter, Ancoats, Castlefield & Spinningfields" },
@@ -575,7 +574,6 @@ export const manchesterAreaCategories = [
   {
     id: "south-trafford",
     category: "South Manchester & Trafford",
-    icon: "🌳",
     tagline: "Premier Suburbs & Leafy Townships",
     areas: [
       { name: "Didsbury", details: "East Didsbury, West Didsbury & Didsbury Village" },
@@ -589,7 +587,6 @@ export const manchesterAreaCategories = [
   {
     id: "stockport-cheshire",
     category: "Stockport & Cheshire Borders",
-    icon: "🏡",
     tagline: "Borough of Stockport & Golden Triangle",
     areas: [
       { name: "Stockport Town Centre", details: "Market, Underbanks & Portwood" },
@@ -603,7 +600,6 @@ export const manchesterAreaCategories = [
   {
     id: "north-east",
     category: "North & East Greater Manchester",
-    icon: "🧭",
     tagline: "Rochdale HQ, Pennines & Tameside",
     areas: [
       { name: "Rochdale (HQ)", details: "Bamford, Norden, Broadhalgh & Castleton" },
@@ -616,7 +612,6 @@ export const manchesterAreaCategories = [
   {
     id: "west-northwest",
     category: "West & North-West Region",
-    icon: "🏰",
     tagline: "Salford Borough, West Pennines & Wigan",
     areas: [
       { name: "Worsley & Swinton", details: "Bridgewater Canal & historic timber homes" },

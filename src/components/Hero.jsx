@@ -1,4 +1,4 @@
-import { ChevronRight, ChevronDown } from "lucide-react";
+import { ChevronRight } from "lucide-react";
 import heroImg from "@/assets/hero.jpg";
 
 export default function Hero() {

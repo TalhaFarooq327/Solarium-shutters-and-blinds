@@ -107,7 +107,6 @@ export default function ProductDetail({ product, onBack, onSelectProduct }) {
     setErrorMessage("");
 
     try {
-      let res;
       const payload = {
         formType: "product_measure",
         interest: `${product.name} (${product.category})`,
@@ -119,26 +118,11 @@ export default function ProductDetail({ product, onBack, onSelectProduct }) {
         notes: formData.notes
       };
 
-      try {
-        res = await fetch("/api/send-email", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(payload)
-        });
-        if (res.status === 404) {
-          res = await fetch("/api/contact.php", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(payload)
-          });
-        }
-      } catch {
-        res = await fetch("/api/contact.php", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(payload)
-        });
-      }
+      const res = await fetch("/api/contact.php", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
+      });
 
       const data = await res.json();
       if (!res.ok) {
@@ -168,7 +152,7 @@ export default function ProductDetail({ product, onBack, onSelectProduct }) {
           </button>
 
           <div className="hidden items-center gap-2 text-xs text-muted-foreground sm:flex">
-            <button type="button" onClick={onBack} className="hover:text-charcoal transition-colors">Home</button>
+            <button type="button" onClick={onBack} className="hover:text-foreground transition-colors">Home</button>
             <ChevronRight className="h-3 w-3" />
             <button
               type="button"
@@ -179,12 +163,12 @@ export default function ProductDetail({ product, onBack, onSelectProduct }) {
                   el?.scrollIntoView({ behavior: "smooth" });
                 }, 100);
               }}
-              className="hover:text-charcoal transition-colors"
+              className="hover:text-foreground transition-colors"
             >
               {product.category}
             </button>
             <ChevronRight className="h-3 w-3" />
-            <span className="font-medium text-charcoal">{product.name}</span>
+            <span className="font-medium text-foreground">{product.name}</span>
           </div>
         </div>
       </div>
@@ -281,21 +265,21 @@ export default function ProductDetail({ product, onBack, onSelectProduct }) {
 
               {/* Quick Trust Highlights */}
               <div className="grid grid-cols-2 gap-3 pt-3 sm:grid-cols-4">
-                <div className="rounded-xl border border-border/70 bg-cream/50 p-3 text-center">
+                <div className="rounded-xl border border-border/70 bg-card p-3 text-center">
                   <Ruler className="mx-auto h-4 w-4 text-accent" />
-                  <p className="mt-1.5 text-[11px] font-medium text-charcoal">Free Measure</p>
+                  <p className="mt-1.5 text-[11px] font-medium text-foreground">Free Measure</p>
                 </div>
-                <div className="rounded-xl border border-border/70 bg-cream/50 p-3 text-center">
+                <div className="rounded-xl border border-border/70 bg-card p-3 text-center">
                   <Sparkles className="mx-auto h-4 w-4 text-accent" />
-                  <p className="mt-1.5 text-[11px] font-medium text-charcoal">100% Bespoke</p>
+                  <p className="mt-1.5 text-[11px] font-medium text-foreground">100% Bespoke</p>
                 </div>
-                <div className="rounded-xl border border-border/70 bg-cream/50 p-3 text-center">
+                <div className="rounded-xl border border-border/70 bg-card p-3 text-center">
                   <Hammer className="mx-auto h-4 w-4 text-accent" />
-                  <p className="mt-1.5 text-[11px] font-medium text-charcoal">Master Fitting</p>
+                  <p className="mt-1.5 text-[11px] font-medium text-foreground">Master Fitting</p>
                 </div>
-                <div className="rounded-xl border border-border/70 bg-cream/50 p-3 text-center">
+                <div className="rounded-xl border border-border/70 bg-card p-3 text-center">
                   <ShieldCheck className="mx-auto h-4 w-4 text-accent" />
-                  <p className="mt-1.5 text-[11px] font-medium text-charcoal">Guaranteed</p>
+                  <p className="mt-1.5 text-[11px] font-medium text-foreground">Guaranteed</p>
                 </div>
               </div>
             </div>
@@ -304,10 +288,10 @@ export default function ProductDetail({ product, onBack, onSelectProduct }) {
             <div className="lg:col-span-6 flex flex-col space-y-6">
               <div>
                 <span className="eyebrow gold-line">{product.category}</span>
-                <h1 className="mt-4 font-serif text-3xl sm:text-4xl lg:text-5xl text-charcoal leading-[1.1]">
+                <h1 className="mt-4 font-serif text-3xl sm:text-4xl lg:text-5xl text-foreground leading-[1.1]">
                   {product.name}
                 </h1>
-                <p className="mt-4 text-base sm:text-lg leading-relaxed text-charcoal/80 font-medium">
+                <p className="mt-4 text-base sm:text-lg leading-relaxed text-foreground/80 font-medium">
                   {product.tagline}
                 </p>
               </div>
@@ -322,24 +306,24 @@ export default function ProductDetail({ product, onBack, onSelectProduct }) {
                       el.scrollIntoView({ behavior: "smooth" });
                     }
                   }}
-                  className="inline-flex items-center justify-center rounded-full bg-charcoal px-7 py-4 text-xs font-medium uppercase tracking-[0.2em] text-primary-foreground shadow-md transition-all hover:bg-accent hover:text-charcoal hover:shadow-lg cursor-pointer"
+                  className="inline-flex items-center justify-center rounded-full bg-accent px-7 py-4 text-xs font-semibold uppercase tracking-[0.2em] text-accent-foreground shadow-md transition-all hover:bg-accent/90 hover:shadow-lg cursor-pointer"
                 >
                   Book Free In-Home Measure
                 </button>
                 <a
                   href="tel:+447451234567"
-                  className="inline-flex items-center justify-center gap-2 rounded-full border border-charcoal/30 bg-transparent px-6 py-4 text-xs font-medium uppercase tracking-[0.18em] text-charcoal transition-all hover:bg-cream"
+                  className="inline-flex items-center justify-center gap-2 rounded-full border border-border bg-card px-6 py-4 text-xs font-medium uppercase tracking-[0.18em] text-foreground transition-all hover:border-accent"
                 >
                   <Phone className="h-3.5 w-3.5 text-accent" /> +44 (745) 123-45-67
                 </a>
               </div>
 
               {/* Key Highlights Bullets */}
-              <div className="rounded-2xl border border-border/80 bg-cream/60 p-6 space-y-3.5">
-                <h3 className="font-serif text-lg text-charcoal">Why Choose This Style:</h3>
+              <div className="rounded-2xl border border-border/80 bg-card p-6 space-y-3.5">
+                <h3 className="font-serif text-lg text-foreground">Why Choose This Style:</h3>
                 <ul className="space-y-2.5">
                   {product.keyBenefits?.map((kb, idx) => (
-                    <li key={idx} className="flex items-start gap-2.5 text-sm text-charcoal/90">
+                    <li key={idx} className="flex items-start gap-2.5 text-sm text-foreground/90">
                       <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-accent" />
                       <span><strong>{kb.title}:</strong> {kb.desc}</span>
                     </li>

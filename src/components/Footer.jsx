@@ -34,7 +34,7 @@ export default function Footer() {
               className="h-10 w-10 object-contain transition-transform duration-300 group-hover:scale-105"
             />
             <div className="flex flex-col">
-              <span className="font-serif text-2xl font-semibold text-charcoal">Solarium</span>
+              <span className="font-serif text-2xl font-semibold text-foreground">Solarium</span>
               <span className="text-[10px] uppercase tracking-[0.28em] font-medium text-accent -mt-1">Shutters & Blinds</span>
             </div>
           </a>
@@ -57,7 +57,7 @@ export default function Footer() {
         {/* Explore */}
         <div>
           <div className="text-xs uppercase tracking-[0.22em] text-muted-foreground">Explore</div>
-          <ul className="mt-4 space-y-2 text-sm text-charcoal">
+          <ul className="mt-4 space-y-2 text-sm text-foreground">
             {nav.slice(1, 5).map((n) => (
               <li key={n.href}>
                 <a href={n.href} className="hover:text-accent">
@@ -71,9 +71,9 @@ export default function Footer() {
         {/* Contact */}
         <div>
           <div className="text-xs uppercase tracking-[0.22em] text-muted-foreground">Contact</div>
-          <ul className="mt-4 space-y-2 text-sm text-charcoal">
+          <ul className="mt-4 space-y-2 text-sm text-foreground">
             <li className="flex items-center gap-2"><Phone className="h-3.5 w-3.5 text-accent" /> +44 (745) 123-45-67</li>
-            <li className="flex items-center gap-2"><Mail className="h-3.5 w-3.5 text-accent" /> hello@solariumshutters.co.uk</li>
+            <li className="flex items-center gap-2"><Mail className="h-3.5 w-3.5 text-accent" /> solariumshutters@gmail.com</li>
             <li className="flex items-start gap-2"><MapPin className="mt-0.5 h-3.5 w-3.5 text-accent shrink-0" /> 4 Broadhalgh Road, Rochdale, England</li>
           </ul>
         </div>
@@ -81,7 +81,7 @@ export default function Footer() {
         {/* Hours */}
         <div>
           <div className="text-xs uppercase tracking-[0.22em] text-muted-foreground">Hours</div>
-          <ul className="mt-4 space-y-2 text-sm text-charcoal">
+          <ul className="mt-4 space-y-2 text-sm text-foreground">
             <li>Mon – Fri · 08:00 AM – 04:00 PM</li>
             <li>Sat – Sun · 08:00 AM – 12:00 PM</li>
           </ul>

@@ -4,7 +4,7 @@ import Reveal from "@/components/Reveal";
 
 function ReviewCard({ r }) {
   return (
-    <figure className="group flex w-80 shrink-0 flex-col rounded-2xl bg-cream/70 p-7 ring-1 ring-border/70 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:ring-accent/40 mx-3">
+    <figure className="group flex w-80 shrink-0 flex-col rounded-2xl bg-card p-7 ring-1 ring-border/70 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:ring-accent/40 mx-3">
       {/* Stars */}
       <div className="flex gap-1 text-accent">
         {Array.from({ length: 5 }).map((_, i) => (
@@ -18,7 +18,7 @@ function ReviewCard({ r }) {
       </div>
 
       {/* Quote */}
-      <blockquote className="mt-4 flex-1 font-serif text-base leading-relaxed text-charcoal">
+      <blockquote className="mt-4 flex-1 font-serif text-base leading-relaxed text-foreground">
         "{r.quote}"
       </blockquote>
 
@@ -28,7 +28,7 @@ function ReviewCard({ r }) {
           {r.name.split(" ").map((p) => p[0]).join("")}
         </div>
         <div>
-          <div className="text-sm font-medium text-charcoal">{r.name}</div>
+          <div className="text-sm font-medium text-foreground">{r.name}</div>
           <div className="text-xs uppercase tracking-[0.18em] text-muted-foreground">
             {r.location}
           </div>
@@ -47,7 +47,7 @@ export default function Reviews() {
       <div className="mx-auto max-w-7xl px-6 lg:px-10">
         <Reveal className="mx-auto max-w-2xl text-center" direction="up">
           <span className="eyebrow">Testimonials</span>
-          <h2 className="mt-5 font-serif text-4xl text-charcoal sm:text-5xl">
+          <h2 className="mt-5 font-serif text-4xl text-foreground sm:text-5xl">
             Loved in the finest homes
           </h2>
         </Reveal>

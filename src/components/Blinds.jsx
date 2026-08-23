@@ -11,7 +11,7 @@ export default function Blinds({ onSelectProduct }) {
           {/* Main title animate from left */}
           <Reveal direction="left" duration={850} className="max-w-2xl">
             <span className="eyebrow gold-line">Also Available</span>
-            <h2 className="mt-5 font-serif text-3xl text-charcoal sm:text-4xl lg:text-5xl">
+            <h2 className="mt-5 font-serif text-3xl text-foreground sm:text-4xl lg:text-5xl">
               Considered blinds, tailored to your rooms
             </h2>
           </Reveal>
@@ -35,7 +35,7 @@ export default function Blinds({ onSelectProduct }) {
               threshold={0.06}
               as="article"
               onClick={() => onSelectProduct?.(b.slug)}
-              className="group flex flex-col overflow-hidden rounded-xl bg-background ring-1 ring-border/70 shadow-2xs transition-all duration-400 hover:-translate-y-2 hover:shadow-[0_24px_45px_-20px_rgba(60,45,30,0.22)] hover:ring-accent/40 cursor-pointer"
+              className="group flex flex-col overflow-hidden rounded-xl bg-card ring-1 ring-border/70 shadow-2xs transition-all duration-400 hover:-translate-y-2 hover:shadow-[0_24px_45px_-20px_rgba(60,45,30,0.22)] hover:ring-accent/40 cursor-pointer"
             >
               <div className="hover-zoom relative aspect-[3/4] w-full overflow-hidden bg-card">
                 <img
@@ -50,7 +50,7 @@ export default function Blinds({ onSelectProduct }) {
               </div>
               <div className="flex flex-1 flex-col justify-between p-5">
                 <div>
-                  <h3 className="font-serif text-lg text-charcoal transition-colors group-hover:text-accent-foreground">{b.name}</h3>
+                  <h3 className="font-serif text-lg text-foreground transition-colors group-hover:text-accent">{b.name}</h3>
                   <p className="mt-2 text-xs leading-relaxed text-muted-foreground">{b.desc}</p>
                 </div>
                 <div className="mt-5 inline-flex items-center gap-1 text-xs font-medium uppercase tracking-[0.18em] text-accent transition-all group-hover:gap-2">

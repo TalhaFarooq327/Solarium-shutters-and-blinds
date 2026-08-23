@@ -1,5 +1,5 @@
 import { useState, useMemo } from "react";
-import { MapPin, Search, Navigation, Compass } from "lucide-react";
+import { MapPin, Search, Navigation } from "lucide-react";
 import { manchesterAreaCategories } from "@/data";
 import Reveal from "@/components/Reveal";
 import StockportMap from "@/components/StockportMap";
@@ -44,7 +44,7 @@ export default function ServiceAreas() {
       <div className="mx-auto max-w-7xl px-6 lg:px-10">
         <Reveal direction="up" className="text-center max-w-3xl mx-auto">
           <span className="eyebrow gold-line justify-center">Where We Work</span>
-          <h2 className="mt-4 font-serif text-4xl text-charcoal sm:text-5xl">
+          <h2 className="mt-4 font-serif text-4xl text-foreground sm:text-5xl">
             Serving Homes Across Greater Manchester &amp; Cheshire
           </h2>
           <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
@@ -65,8 +65,8 @@ export default function ServiceAreas() {
                 }}
                 className={`px-4 py-2 text-xs font-medium rounded-full transition-all duration-200 cursor-pointer flex items-center gap-1.5 ${
                   activeCategory === cat.id
-                    ? "bg-charcoal text-cream shadow-xs"
-                    : "bg-background border border-border/80 text-muted-foreground hover:text-charcoal hover:border-accent"
+                    ? "bg-accent text-accent-foreground font-semibold shadow-xs"
+                    : "bg-background border border-border/80 text-muted-foreground hover:text-foreground hover:border-accent"
                 }`}
               >
                 <span>{cat.icon}</span>
@@ -86,7 +86,7 @@ export default function ServiceAreas() {
                 setSearchQuery(e.target.value);
                 if (e.target.value) setSelectedArea(e.target.value);
               }}
-              className="w-full rounded-full border border-border/80 bg-background pl-9 pr-8 py-2 text-xs text-charcoal placeholder:text-muted-foreground/70 focus:border-accent focus:outline-hidden focus:ring-1 focus:ring-accent/30 transition-all"
+              className="w-full rounded-full border border-border/80 bg-background pl-9 pr-8 py-2 text-xs text-foreground placeholder:text-muted-foreground/70 focus:border-accent focus:outline-hidden focus:ring-1 focus:ring-accent/30 transition-all"
             />
             {searchQuery && (
               <button
@@ -94,7 +94,7 @@ export default function ServiceAreas() {
                   setSearchQuery("");
                   setSelectedArea(null);
                 }}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-muted-foreground hover:text-charcoal cursor-pointer"
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-muted-foreground hover:text-foreground cursor-pointer"
               >
                 ✕
               </button>
@@ -107,30 +107,31 @@ export default function ServiceAreas() {
           {/* Areas Display (7 Columns) */}
           <div className="lg:col-span-7 space-y-8">
             {filteredCategories.length === 0 ? (
-              <div className="rounded-2xl border border-dashed border-border p-8 text-center bg-background/50">
-                <Compass className="mx-auto h-8 w-8 text-muted-foreground/50 mb-3" />
-                <p className="text-sm font-medium text-charcoal">No areas match &quot;{searchQuery}&quot;</p>
-                <p className="text-xs text-muted-foreground mt-1">We cover all postcodes in Greater Manchester! Contact us to confirm your address.</p>
+              <div className="rounded-2xl border border-border/80 bg-card p-8 text-center">
+                <p className="text-sm font-medium text-foreground">No areas match &quot;{searchQuery}&quot;</p>
+                <p className="mt-1 text-xs text-muted-foreground">
+                  We serve all of Greater Manchester. Ring us or leave a quote request to confirm your postcode.
+                </p>
                 <button
                   onClick={() => {
                     setSearchQuery("");
                     setActiveCategory(manchesterAreaCategories[0]?.id || "central-city");
                     setSelectedArea(null);
                   }}
-                  className="mt-4 text-xs font-semibold text-accent underline cursor-pointer hover:text-charcoal"
+                  className="mt-4 text-xs font-semibold text-accent underline cursor-pointer hover:text-foreground"
                 >
-                  Clear filters
+                  Clear search
                 </button>
               </div>
             ) : (
               filteredCategories.map((cat) => (
-                <Reveal key={cat.id} direction="up">
-                  <div className="rounded-2xl border border-border/70 bg-background p-6 shadow-2xs transition-all duration-300 hover:shadow-md">
-                    <div className="flex items-center justify-between border-b border-border/50 pb-4">
+                <Reveal key={cat.id} direction="up" className="rounded-2xl border border-border/70 bg-card p-6 shadow-2xs">
+                  <div>
+                    <div className="flex items-center justify-between border-b border-border/60 pb-4">
                       <div className="flex items-center gap-2.5">
                         <span className="text-xl">{cat.icon}</span>
                         <div>
-                          <h3 className="font-serif text-lg font-semibold text-charcoal">{cat.category}</h3>
+                          <h3 className="font-serif text-lg font-semibold text-foreground">{cat.category}</h3>
                           <p className="text-xs text-muted-foreground">{cat.tagline}</p>
                         </div>
                       </div>
@@ -153,7 +154,7 @@ export default function ServiceAreas() {
                           <div className="flex items-start gap-2.5">
                             <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-accent transition-transform duration-300 group-hover:scale-110" />
                             <div>
-                              <h4 className="text-xs font-semibold text-charcoal group-hover:text-accent transition-colors">
+                              <h4 className="text-xs font-semibold text-foreground group-hover:text-accent transition-colors">
                                 {area.name}
                               </h4>
                               <p className="mt-0.5 text-[11px] text-muted-foreground leading-snug">
@@ -180,10 +181,10 @@ export default function ServiceAreas() {
                     <Navigation className="h-5 w-5" />
                   </div>
                   <div>
-                    <h4 className="text-xs font-semibold uppercase tracking-wider text-charcoal">Greater Manchester Postcodes Covered</h4>
+                    <h4 className="text-xs font-semibold uppercase tracking-wider text-foreground">Greater Manchester Postcodes Covered</h4>
                     <div className="mt-1 flex flex-wrap gap-1.5">
                       {POSTCODES.map((code) => (
-                        <span key={code} className="rounded-md bg-background px-2 py-0.5 text-[10px] font-bold text-charcoal border border-border/60">
+                        <span key={code} className="rounded-md bg-background px-2 py-0.5 text-[10px] font-bold text-foreground border border-border/60">
                           {code}
                         </span>
                       ))}
@@ -192,7 +193,7 @@ export default function ServiceAreas() {
                 </div>
                 <a
                   href="#contact"
-                  className="shrink-0 text-xs font-semibold text-accent hover:text-charcoal underline flex items-center gap-1 cursor-pointer"
+                  className="shrink-0 text-xs font-semibold text-accent hover:text-foreground underline flex items-center gap-1 cursor-pointer"
                 >
                   Book Free Survey &rarr;
                 </a>

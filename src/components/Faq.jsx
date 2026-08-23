@@ -12,7 +12,7 @@ export default function Faq() {
         {/* Left column */}
         <Reveal direction="up">
           <span className="eyebrow gold-line">Frequently Asked</span>
-          <h2 className="mt-5 font-serif text-4xl leading-tight text-charcoal sm:text-5xl">
+          <h2 className="mt-5 font-serif text-4xl leading-tight text-foreground sm:text-5xl">
             Answers, in plain English.
           </h2>
           <p className="mt-5 text-sm text-muted-foreground">
@@ -40,7 +40,7 @@ export default function Faq() {
                     className="flex w-full items-start justify-between gap-6 py-6 text-left"
                     aria-expanded={open}
                   >
-                    <span className="font-serif text-lg text-charcoal sm:text-xl transition-colors hover:text-accent">
+                    <span className="font-serif text-lg text-foreground sm:text-xl transition-colors hover:text-accent">
                       {f.q}
                     </span>
                     <span className={`mt-1 text-accent transition-transform duration-300 ${open ? "rotate-180" : "rotate-0"}`}>

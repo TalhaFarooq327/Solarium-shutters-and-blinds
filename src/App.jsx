@@ -19,14 +19,6 @@ import ProductDetail from "@/components/ProductDetail";
 export default function App() {
   const [scrolled, setScrolled] = useState(false);
   const [lightbox, setLightbox] = useState(null);
-  const [theme, setTheme] = useState(() => {
-    if (typeof window !== "undefined") {
-      const saved = localStorage.getItem("solarium-theme");
-      if (saved) return saved;
-      return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
-    }
-    return "light";
-  });
 
   const [currentProductSlug, setCurrentProductSlug] = useState(() => {
     if (typeof window !== "undefined" && window.location.hash.startsWith("#product/")) {
@@ -35,15 +27,27 @@ export default function App() {
     return null;
   });
 
-  // Dark mode class toggle & localStorage sync
+  // Automatically adapt to Chrome/browser system dark mode setting
   useEffect(() => {
-    document.documentElement.classList.toggle("dark", theme === "dark");
-    localStorage.setItem("solarium-theme", theme);
-  }, [theme]);
+    if (typeof window === "undefined") return;
+    const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
 
-  const toggleTheme = () => {
-    setTheme((prev) => (prev === "dark" ? "light" : "dark"));
-  };
+    const syncTheme = (e) => {
+      document.documentElement.classList.toggle("dark", e.matches);
+    };
+
+    // Apply initial system preference
+    syncTheme(mediaQuery);
+
+    // Listen for system theme changes dynamically
+    if (mediaQuery.addEventListener) {
+      mediaQuery.addEventListener("change", syncTheme);
+      return () => mediaQuery.removeEventListener("change", syncTheme);
+    } else {
+      mediaQuery.addListener(syncTheme);
+      return () => mediaQuery.removeListener(syncTheme);
+    }
+  }, []);
 
   // Handle hash change for browser back/forward and direct links
   useEffect(() => {
@@ -112,8 +116,6 @@ export default function App() {
         scrolled={scrolled}
         isProductPage={!!activeProduct}
         onNavigateHome={handleNavigateHome}
-        theme={theme}
-        onToggleTheme={toggleTheme}
       />
 
       {activeProduct ? (

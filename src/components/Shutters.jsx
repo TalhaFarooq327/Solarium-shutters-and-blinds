@@ -11,7 +11,7 @@ export default function Shutters({ onSelectProduct }) {
           {/* Main title animate from left */}
           <Reveal className="max-w-2xl" direction="left" duration={850}>
             <span className="eyebrow gold-line">Plantation Shutters</span>
-            <h2 className="mt-5 font-serif text-4xl leading-[1.1] text-charcoal sm:text-5xl lg:text-6xl">
+            <h2 className="mt-5 font-serif text-4xl leading-[1.1] text-foreground sm:text-5xl lg:text-6xl">
               Every panel, every hinge,<br />
               <span className="italic">made for your window.</span>
             </h2>
@@ -51,7 +51,7 @@ export default function Shutters({ onSelectProduct }) {
                 <span className="absolute inset-0 bg-charcoal/0 transition-colors duration-500 group-hover:bg-black/5" />
               </div>
               <div className="flex flex-1 flex-col p-7">
-                <h3 className="font-serif text-xl text-charcoal transition-colors group-hover:text-accent-foreground">{s.name}</h3>
+                <h3 className="font-serif text-xl text-foreground transition-colors group-hover:text-accent">{s.name}</h3>
                 <p className="mt-3 flex-1 text-sm leading-relaxed text-muted-foreground">{s.desc}</p>
                 <div className="mt-6 inline-flex items-center gap-1.5 text-xs font-medium uppercase tracking-[0.22em] text-accent transition-all group-hover:gap-2.5">
                   <span>Explore Details</span>

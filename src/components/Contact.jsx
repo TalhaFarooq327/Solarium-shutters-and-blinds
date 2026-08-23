@@ -27,7 +27,6 @@ export default function Contact() {
     setErrorMessage("");
 
     try {
-      let res;
       const payload = {
         formType: "general_consultation",
         name: formData.name,
@@ -38,26 +37,11 @@ export default function Contact() {
         message: formData.message
       };
 
-      try {
-        res = await fetch("/api/send-email", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(payload)
-        });
-        if (res.status === 404) {
-          res = await fetch("/api/contact.php", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(payload)
-          });
-        }
-      } catch {
-        res = await fetch("/api/contact.php", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(payload)
-        });
-      }
+      const res = await fetch("/api/contact.php", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
+      });
 
       const data = await res.json();
 
@@ -108,11 +92,11 @@ export default function Contact() {
               </span>
               +44 (745) 123-45-67
             </a>
-            <a href="mailto:hello@solariumshutters.co.uk" className="flex items-center gap-3 transition-colors hover:text-accent group">
+            <a href="mailto:solariumshutters@gmail.com" className="flex items-center gap-3 transition-colors hover:text-accent group">
               <span className="grid h-8 w-8 place-items-center rounded-full bg-white/5 ring-1 ring-white/10 group-hover:bg-accent/20">
                 <Mail className="h-4 w-4 text-accent" />
               </span>
-              hello@solariumshutters.co.uk
+              solariumshutters@gmail.com
             </a>
             <div className="flex items-start gap-3">
               <span className="grid h-8 w-8 place-items-center rounded-full bg-white/5 ring-1 ring-white/10 shrink-0 mt-0.5">
@@ -144,7 +128,7 @@ export default function Contact() {
                 <div className="mx-auto grid h-16 w-16 place-items-center rounded-full bg-accent/15 text-accent ring-1 ring-accent/30 shadow-inner">
                   <CheckCircle2 className="h-8 w-8" />
                 </div>
-                <h3 className="mt-6 font-serif text-2xl sm:text-3xl text-charcoal">
+                <h3 className="mt-6 font-serif text-2xl sm:text-3xl text-foreground">
                   Thank You, {formData.name || "Customer"}!
                 </h3>
                 <p className="mt-3 text-sm text-muted-foreground max-w-sm mx-auto leading-relaxed">
