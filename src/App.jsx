@@ -27,28 +27,6 @@ export default function App() {
     return null;
   });
 
-  // Automatically adapt to Chrome/browser system dark mode setting
-  useEffect(() => {
-    if (typeof window === "undefined") return;
-    const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
-
-    const syncTheme = (e) => {
-      document.documentElement.classList.toggle("dark", e.matches);
-    };
-
-    // Apply initial system preference
-    syncTheme(mediaQuery);
-
-    // Listen for system theme changes dynamically
-    if (mediaQuery.addEventListener) {
-      mediaQuery.addEventListener("change", syncTheme);
-      return () => mediaQuery.removeEventListener("change", syncTheme);
-    } else {
-      mediaQuery.addListener(syncTheme);
-      return () => mediaQuery.removeListener(syncTheme);
-    }
-  }, []);
-
   // Handle hash change for browser back/forward and direct links
   useEffect(() => {
     const parseHash = () => {
