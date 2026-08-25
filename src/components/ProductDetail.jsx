@@ -457,7 +457,7 @@ export default function ProductDetail({ product, onBack, onSelectProduct }) {
                   Thank You, {formData.name || "Customer"}!
                 </h3>
                 <p className="mt-2 text-sm text-muted-foreground max-w-md mx-auto leading-relaxed">
-                  We've received your request for <strong>{product.name}</strong> ({formData.windowCount}). A design specialist will contact you on <strong>{formData.phone}</strong> within 24 hours to arrange your complimentary in-home measure.
+                  We've received your request for <strong>{product.name}</strong> ({formData.windowCount}). A design specialist will contact you at <strong>{formData.email}</strong> within 24 hours to arrange your complimentary in-home measure.
                 </p>
                 <div className="mt-6 pt-6 border-t border-border/80 flex flex-col items-center gap-3">
                   <p className="text-xs text-muted-foreground">Confirmation details sent to <strong>{formData.email}</strong></p>

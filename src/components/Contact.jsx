@@ -132,7 +132,7 @@ export default function Contact() {
                   Thank You, {formData.name || "Customer"}!
                 </h3>
                 <p className="mt-3 text-sm text-muted-foreground max-w-sm mx-auto leading-relaxed">
-                  Your enquiry for <strong>{formData.interest}</strong> has been received. A design specialist will contact you on <strong>{formData.phone}</strong> within 24 hours to schedule your free measure.
+                  Your enquiry for <strong>{formData.interest}</strong> has been received. A design specialist will contact you at <strong>{formData.email}</strong> within 24 hours to schedule your free measure.
                 </p>
                 <div className="mt-8 pt-6 border-t border-border/80 flex flex-col items-center gap-3">
                   <p className="text-xs text-muted-foreground">Confirmation details sent to <strong>{formData.email}</strong></p>
